@@ -10,11 +10,11 @@ Future<void> main() async {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "NewsAPI",
+      title: "NewsReader",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.light,
     ),
   );
 }

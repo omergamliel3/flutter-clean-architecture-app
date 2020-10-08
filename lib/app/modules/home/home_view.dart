@@ -21,7 +21,7 @@ class HomeView extends GetView<HomeController> {
             width: 6.0,
           ),
           Text(
-            'NewsAPI',
+            'NewsReader',
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,

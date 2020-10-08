@@ -16,6 +16,7 @@ class LoadingView extends GetView<LoadingController> {
               return Icon(
                 Icons.adb,
                 size: controller.size.value.toDouble(),
+                color: Colors.black,
               );
             }),
           ).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
