@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_hacker_news_api/app/core/utils/launcher.dart';
 import 'package:getx_hacker_news_api/app/modules/home/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -122,41 +123,44 @@ class HomeView extends GetView<HomeController> {
           itemCount: controller.articles.length,
           itemBuilder: (context, index) {
             var article = controller.articles[index];
-            return Container(
-              width: Get.mediaQuery.size.width,
-              child: Card(
-                elevation: 4.0,
-                child: Container(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(4.0),
-                            topRight: Radius.circular(4.0)),
-                        child: Image.network(
-                          article.urlToImage,
-                          fit: BoxFit.cover,
-                          height: Get.mediaQuery.size.height * 0.3,
-                          width: double.infinity,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Text(
-                              'CANT LOAD IMAGE :(',
-                              style: Theme.of(context).textTheme.headline2,
-                            );
-                          },
-                        )),
-                    Text(
-                      article.title ?? '',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ).paddingAll(4.0),
-                    Text(
-                      article.content ?? '',
-                      style: TextStyle(fontSize: 18),
-                    ).paddingAll(4.0),
-                  ],
-                )),
+            return InkWell(
+              onTap: () => launch(article.url),
+              child: Container(
+                width: Get.mediaQuery.size.width,
+                child: Card(
+                  elevation: 4.0,
+                  child: Container(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0)),
+                          child: Image.network(
+                            article.urlToImage,
+                            fit: BoxFit.cover,
+                            height: Get.mediaQuery.size.height * 0.3,
+                            width: double.infinity,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Text(
+                                'CANT LOAD IMAGE :(',
+                                style: Theme.of(context).textTheme.headline2,
+                              );
+                            },
+                          )),
+                      Text(
+                        article.title ?? '',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ).paddingAll(4.0),
+                      Text(
+                        article.content ?? '',
+                        style: TextStyle(fontSize: 18),
+                      ).paddingAll(4.0),
+                    ],
+                  )),
+                ),
               ),
             );
           },
