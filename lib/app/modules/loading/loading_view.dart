@@ -12,13 +12,13 @@ class LoadingView extends GetView<LoadingController> {
         children: [
           Container(
               alignment: Alignment.center,
-              child: Icon(
+              child: const Icon(
                 Icons.adb,
                 size: 55,
                 color: Colors.black,
               )).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
-          Spacer(),
-          Text(
+          const Spacer(),
+          const Text(
             'LOADING...',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ).paddingOnly(bottom: 20.0)

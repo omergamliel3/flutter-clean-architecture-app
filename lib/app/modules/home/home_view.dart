@@ -13,14 +13,14 @@ class HomeView extends GetView<HomeController> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Icon(
+          const Icon(
             Icons.adb,
             color: Colors.black,
           ),
-          SizedBox(
+          const SizedBox(
             width: 6.0,
           ),
-          Text(
+          const Text(
             'NewsReader',
             style: TextStyle(
               color: Colors.black,
@@ -38,18 +38,18 @@ class HomeView extends GetView<HomeController> {
     return Obx(() {
       switch (controller.connectvityResult.value) {
         case ConnectivityResult.none:
-          return Icon(
+          return const Icon(
             Icons.signal_wifi_off,
             color: Colors.black,
           );
           break;
         case ConnectivityResult.mobile:
-          return Icon(
+          return const Icon(
             Icons.network_cell,
             color: Colors.black,
           );
         case ConnectivityResult.wifi:
-          return Icon(
+          return const Icon(
             Icons.wifi,
             color: Colors.black,
           );
@@ -63,18 +63,18 @@ class HomeView extends GetView<HomeController> {
     return FloatingActionButton.extended(
         onPressed: () => controller.remoteFetch(),
         backgroundColor: Colors.amber,
-        icon: Icon(
+        icon: const Icon(
           Icons.refresh,
           color: Colors.black,
         ),
-        label: Text(
+        label: const Text(
           'REFRESH',
           style: TextStyle(color: Colors.black),
         ));
   }
 
   Widget initialWidget() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
       ),
@@ -82,7 +82,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget busyWidget() {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
       ),
@@ -94,7 +94,7 @@ class HomeView extends GetView<HomeController> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
+        const Text(
           'Something went wrong',
           style: TextStyle(
             fontSize: 24,
@@ -107,7 +107,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget dataWidget() {
     if (controller.articles.length == 0) {
-      Center(
+      const Center(
         child: Text(
           'Cant find articles at this moment :(',
           style: TextStyle(fontSize: 24),
@@ -135,7 +135,7 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       article.urlToImage != null
                           ? ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topLeft: Radius.circular(4.0),
                                   topRight: Radius.circular(4.0)),
                               child: Image.network(

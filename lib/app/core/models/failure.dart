@@ -1,5 +1,5 @@
 class Failure {
-  Failure(this.text);
+  const Failure(this.text);
   final String text;
   @override
   String toString() {
