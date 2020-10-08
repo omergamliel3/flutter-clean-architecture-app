@@ -12,7 +12,7 @@ A simple news api articles reader, using Getx and Flutter sdk.
 ## Technologies
  
 ### Architecture
-- **MVC design pattern**
+- **MVC design pattern (generated from GetX CLI)**
 
 ### Front-end
 - **Flutter SDK**
