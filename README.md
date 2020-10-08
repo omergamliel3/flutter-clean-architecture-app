@@ -1,6 +1,6 @@
 # NewsAPI
 
-A simple news api articles reader, using Getx, GetX CLI and Flutter sdk.
+A simple news api articles reader, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli) and Flutter sdk.
 
 ## Screenshots
 
@@ -16,7 +16,7 @@ A simple news api articles reader, using Getx, GetX CLI and Flutter sdk.
 
 ### Front-end
 - **Flutter SDK**
-- **GetX for state managment, and other services**
+- **GetX (for state managment, navigation service, dependencies manager)**
 
 ### Back-end
 - **SQLite**
