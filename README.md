@@ -6,7 +6,7 @@ A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [
 
 - **Loading view (splash screen with app logo)**
 - **Main view (articles listview, 'REFRESH' button to fetch new data from api)**
-- **When fetching new data from the api, the data is stored locally, so the user can read the articles while offline. The arcticles shown in offline mode are the latest fetched articles.***
+- **When fetching new data from the api, the data is stored locally, so the user can read the articles while offline. The articles shown in offline mode are the latest fetched articles.**
 - **Network sensitive icon (in the right side of the app bar). I achieved this functionality by listening to onConnectivityChanded stream from Connectivity plugin**
 - **Automatically detect offline mode on start up, and fetch local stored articles if exists. Listen to connectivity changes - when there is an online connection, fetch new data from api and update view with new articles.**
 
