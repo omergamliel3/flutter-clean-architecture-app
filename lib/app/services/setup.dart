@@ -8,7 +8,7 @@ Future<void> setupDependencies() async {
   // construct local database
   final localDatabase = LocalDatabase();
   // wait for local database initalise
-  await localDatabase.initDatabase();
+  await localDatabase.initDb();
   // register ArticlesService
   Get.lazyPut<ArticlesService>(
       () => ArticlesService(localDatabase: localDatabase));

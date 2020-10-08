@@ -2,7 +2,6 @@ import 'package:meta/meta.dart';
 
 class Article {
   final String title;
-  final String description;
   final String content;
   final String publishedAt;
   final String url;
@@ -10,7 +9,6 @@ class Article {
 
   Article(
       {@required this.title,
-      this.description,
       this.content,
       this.publishedAt,
       this.url,
@@ -18,7 +16,6 @@ class Article {
 
   Article.fromJsonMap(Map<String, dynamic> map)
       : title = map['title'],
-        description = map['description'],
         content = map['content'],
         publishedAt = map['publishedAt'],
         url = map['url'],
