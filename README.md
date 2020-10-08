@@ -1,6 +1,6 @@
 # NewsAPI
 
-A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli) and Flutter sdk.
+A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli), [NewsAPI](https://newsapi.org/) and Flutter sdk.
 
 ## Screenshots
 
@@ -20,7 +20,7 @@ A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [
 
 ### Back-end
 - **SQLite**
-- [NewsAPI](https://newsapi.org/) 
+- **NewsAPI** 
 
 # Author 🙋
 
