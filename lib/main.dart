@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/setup.dart';
 
-void main() {
-  setupDependencies();
+Future<void> main() async {
+  await setupDependencies();
   runApp(
     GetMaterialApp(
-      title: "HackerNews",
+      title: "NewsAPI",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       theme: ThemeData.light(),

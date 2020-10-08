@@ -1,30 +1,28 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
+import 'package:getx_hacker_news_api/app/routes/app_pages.dart';
 
 class LoadingController extends GetxController {
-  final count1 = 0.obs;
-  var count2 = 0;
-
   @override
-  void onInit() {}
-
-  @override
-  void onReady() {}
-
-  @override
-  void onClose() {}
-
-  increment1() => count1.value++;
-  increment2() {
-    count2++;
-    update(['test_builder']);
+  void onInit() async {
+    await Future.delayed(Duration(seconds: 2));
+    Get.offAndToNamed(Routes.HOME);
   }
 
-  showDialog() {
-    Get.defaultDialog(
-        radius: 8.0,
-        title: 'Default Dialog!',
-        textConfirm: 'OK',
-        middleText: 'Some test...',
-        textCancel: 'BACK');
+  final size = 5.obs;
+
+  @override
+  void onReady() {
+    Timer.periodic(Duration(milliseconds: 10), (timer) {
+      if (size.value <= 80) {
+        size.value++;
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    size.close();
   }
 }
