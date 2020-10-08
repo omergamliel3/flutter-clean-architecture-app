@@ -1,6 +1,6 @@
 # NewsAPI
 
-A simple news api articles reader, using Getx and Flutter sdk.
+A simple news api articles reader, using Getx, GetX CLI and Flutter sdk.
 
 ## Screenshots
 
