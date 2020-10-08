@@ -11,15 +11,12 @@ class LoadingView extends GetView<LoadingController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            alignment: Alignment.center,
-            child: Obx(() {
-              return Icon(
+              alignment: Alignment.center,
+              child: Icon(
                 Icons.adb,
-                size: controller.size.value.toDouble(),
+                size: 55,
                 color: Colors.black,
-              );
-            }),
-          ).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
+              )).paddingOnly(top: Get.mediaQuery.size.height * 0.4),
           Spacer(),
           Text(
             'LOADING...',

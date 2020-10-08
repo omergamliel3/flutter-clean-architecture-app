@@ -10,19 +10,9 @@ class LoadingController extends GetxController {
     Get.offAndToNamed(Routes.HOME);
   }
 
-  final size = 5.obs;
+  @override
+  void onReady() {}
 
   @override
-  void onReady() {
-    Timer.periodic(Duration(milliseconds: 5), (timer) {
-      if (size.value <= 80) {
-        size.value++;
-      }
-    });
-  }
-
-  @override
-  void onClose() {
-    size.close();
-  }
+  void onClose() {}
 }
