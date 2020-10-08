@@ -11,9 +11,9 @@ class HomeController extends GetxController {
   // articles service
   final service = Get.find<ArticlesService>();
   final connectivity = Get.find<Connectivity>();
-  // view state
+  // view state reactive value
   final viewState = ViewState.initial.obs;
-  // device connectivity state
+  // device connectivity state reactive value
   final connectvityResult = ConnectivityResult.none.obs;
 
   // articles data
@@ -47,6 +47,7 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {
+    // close subscriptions for rx values
     viewState.close();
     connectvityResult.close();
   }
