@@ -6,7 +6,7 @@ import 'package:getx_hacker_news_api/app/routes/app_pages.dart';
 class LoadingController extends GetxController {
   @override
   void onInit() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     Get.offAndToNamed(Routes.HOME);
   }
 
@@ -14,7 +14,7 @@ class LoadingController extends GetxController {
 
   @override
   void onReady() {
-    Timer.periodic(Duration(milliseconds: 10), (timer) {
+    Timer.periodic(Duration(milliseconds: 5), (timer) {
       if (size.value <= 80) {
         size.value++;
       }

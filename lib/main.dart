@@ -10,6 +10,7 @@ Future<void> main() async {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.topLevel,
       title: "NewsReader",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

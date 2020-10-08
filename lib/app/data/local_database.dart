@@ -70,7 +70,7 @@ class LocalDatabase {
       for (var article in articles) {
         await _db.transaction(
           (txn) async {
-            int id = await txn.rawInsert('''
+            await txn.rawInsert('''
           INSERT INTO $_kDBTableName 
           (
           title,
@@ -87,7 +87,6 @@ class LocalDatabase {
               "${article.url}",
               "${article.urlToImage}"
             )''');
-            print('create new record with id: $id');
           },
         );
       }

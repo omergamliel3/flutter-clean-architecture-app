@@ -7,7 +7,7 @@ import 'package:getx_hacker_news_api/app/services/articles_service.dart';
 Future<void> setupDependencies() async {
   // construct local database
   final localDatabase = LocalDatabase();
-  // wait for local database initalise
+  // wait for init database
   await localDatabase.initDb();
   // register ArticlesService
   Get.lazyPut<ArticlesService>(

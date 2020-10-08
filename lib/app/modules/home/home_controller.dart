@@ -8,7 +8,7 @@ import 'package:getx_hacker_news_api/app/services/articles_service.dart';
 enum ViewState { initial, busy, error, data }
 
 class HomeController extends GetxController {
-  // api service
+  // articles service
   final service = Get.find<ArticlesService>();
   final connectivity = Get.find<Connectivity>();
   // view state
@@ -27,19 +27,22 @@ class HomeController extends GetxController {
   void onInit() async {
     // check for connectivity
     connectvityResult.value = await connectivity.checkConnectivity();
-    // listen to connectivity changed event and update connectvityResult value
-    connectivity.onConnectivityChanged.listen((event) {
-      connectvityResult.value = event;
-      // automatically evoke remote fetch if device is offline and
-      if (event != ConnectivityResult.none &&
-          (_articles == null || _articles.isEmpty || localArticlesView))
-        remoteFetch();
-    });
+
     if (connectvityResult.value == ConnectivityResult.none) {
       localFetch();
     } else {
       remoteFetch();
     }
+
+    // listen to connectivity changed event and update connectvityResult value
+    connectivity.onConnectivityChanged.listen((event) {
+      connectvityResult.value = event;
+      // automatically evoke remote fetch if device is offline
+      // and articles data is empty, null or in local view
+      if (event != ConnectivityResult.none &&
+          (_articles == null || _articles.isEmpty || localArticlesView))
+        remoteFetch();
+    });
   }
 
   @override
