@@ -1,4 +1,4 @@
-# NewsAPI
+# GetX NewsAPI
 
 A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli), [NewsAPI](https://newsapi.org/) and Flutter sdk.
 
