@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
@@ -26,6 +25,7 @@ class ArticlesService {
       }
       var data = extractData(response);
       if (data == null) return Left(Failure('Something went wrong'));
+      await localDatabase.saveArticles(data);
       return Right(data);
     } catch (e) {
       print(e);
@@ -35,14 +35,11 @@ class ArticlesService {
 
   /// return either failure or list of articles from saved local database
   Future<Either<Failure, List<Article>>> fetchLocalSavedArticles() async {
-    await Future.delayed(Duration(seconds: 1));
-    var random = Random();
-    var generatedData = List<Article>.generate(
-        random.nextInt(10), (index) => Article(title: index.toString()));
-    if (generatedData.length < 1) {
-      return Left(Failure('some database error error'));
+    var articles = await localDatabase.getArticles();
+    if (articles == null || articles.isEmpty) {
+      return Left(Failure('No articles saved locally'));
     }
-    return Right(generatedData);
+    return Right(articles);
   }
 
   /// extract data from http api response

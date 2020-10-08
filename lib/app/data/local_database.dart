@@ -61,9 +61,11 @@ class LocalDatabase {
         ''');
   }
 
-  /// save articles in database
+  /// save articles
   Future<bool> saveArticles(List<Article> articles) async {
     if (articles == null || articles.isEmpty) return false;
+    await deleteAllArticles();
+    articles = validateData(articles);
     try {
       for (var article in articles) {
         await _db.transaction(
@@ -98,9 +100,39 @@ class LocalDatabase {
     }
   }
 
+  /// delete all articles
+  Future<bool> deleteAllArticles() async {
+    try {
+      await _db.rawDelete('''
+        DELETE FROM $_kDBTableName
+      ''');
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
   /// get all saved articles from db
   Future<List<Article>> getArticles() async {
     List<Map> jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
     return jsons.map((e) => Article.fromJsonMap(e)).toList();
+  }
+
+  /// validate Articles data to evoid database exception
+  List<Article> validateData(List<Article> articles) {
+    var validArticles = <Article>[];
+    for (var article in articles) {
+      var validTitle = article.title?.replaceAll('\"', '\'');
+      var validContent = article.content?.replaceAll('\"', '\'');
+      var validArticle = Article(
+          title: validTitle,
+          content: validContent,
+          publishedAt: article.publishedAt,
+          url: article.url,
+          urlToImage: article.urlToImage);
+      validArticles.add(validArticle);
+    }
+    return validArticles;
   }
 }

@@ -20,6 +20,8 @@ class HomeController extends GetxController {
   List<Article> _articles;
   // articles getter
   List<Article> get articles => List.from(_articles);
+  // track local/remote articles state in view
+  bool localArticlesView = false;
 
   @override
   void onInit() async {
@@ -28,15 +30,15 @@ class HomeController extends GetxController {
     // listen to connectivity changed event and update connectvityResult value
     connectivity.onConnectivityChanged.listen((event) {
       connectvityResult.value = event;
+      // automatically evoke remote fetch if device is offline and
       if (event != ConnectivityResult.none &&
-          (_articles == null || _articles.isEmpty)) fetch();
+          (_articles == null || _articles.isEmpty || localArticlesView))
+        remoteFetch();
     });
     if (connectvityResult.value == ConnectivityResult.none) {
-      // implement no connectivity data (fetch saved data from local db)
-      print('no connectivity!');
-      _setState(ViewState.error);
+      localFetch();
     } else {
-      fetch();
+      remoteFetch();
     }
   }
 
@@ -46,16 +48,33 @@ class HomeController extends GetxController {
     connectvityResult.close();
   }
 
-  // feth data from api service
-  Future<void> fetch() async {
+  // feth data from articles service
+  Future<void> remoteFetch() async {
+    localArticlesView = false;
     if (viewState.value == ViewState.busy) return;
+    if (connectvityResult.value == ConnectivityResult.none) {
+      Get.snackbar('Can\'t refresh when offline',
+          'Please connect your device to wifi or mobile network',
+          snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
     _setState(ViewState.busy);
     var result = await service.fetchArticles();
     _handleFetchResult(result);
   }
 
+  // feth data from local database
+  Future<void> localFetch() async {
+    localArticlesView = true;
+    if (viewState.value == ViewState.busy) return;
+    _setState(ViewState.busy);
+    var result = await service.fetchLocalSavedArticles();
+    _handleFetchResult(result, true);
+  }
+
   // handle api fetch result
-  void _handleFetchResult(Either<Failure, List<Article>> result) {
+  void _handleFetchResult(Either<Failure, List<Article>> result,
+      [bool local = false]) {
     result.fold((feilure) {
       _articles?.clear();
       _setState(ViewState.error);
@@ -64,8 +83,9 @@ class HomeController extends GetxController {
     }, (data) {
       _articles = data;
       _setState(ViewState.data);
+      var notifyLocal = local ? '(offline mode)' : '';
       Get.snackbar('Loaded successfuly!',
-          ' ${_articles.length} new articles ready for reading',
+          ' ${_articles.length} new articles ready for reading $notifyLocal',
           snackPosition: SnackPosition.BOTTOM);
     });
   }

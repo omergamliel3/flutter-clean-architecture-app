@@ -61,7 +61,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget floatingActionButton() {
     return FloatingActionButton.extended(
-        onPressed: () => controller.fetch(),
+        onPressed: () => controller.remoteFetch(),
         backgroundColor: Colors.amber,
         icon: Icon(
           Icons.refresh,
@@ -117,7 +117,7 @@ class HomeView extends GetView<HomeController> {
     return Container(
       child: RefreshIndicator(
         onRefresh: () async {
-          await controller.fetch();
+          await controller.remoteFetch();
         },
         child: ListView.builder(
           itemCount: controller.articles.length,
@@ -133,22 +133,27 @@ class HomeView extends GetView<HomeController> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0)),
-                          child: Image.network(
-                            article.urlToImage,
-                            fit: BoxFit.cover,
-                            height: Get.mediaQuery.size.height * 0.3,
-                            width: double.infinity,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Text(
-                                'CANT LOAD IMAGE :(',
-                                style: Theme.of(context).textTheme.headline2,
-                              );
-                            },
-                          )),
+                      article.urlToImage != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0)),
+                              child: Image.network(
+                                article.urlToImage,
+                                fit: BoxFit.cover,
+                                height: Get.mediaQuery.size.height * 0.3,
+                                width: double.infinity,
+                                errorBuilder: (context, error, stackTrace) {
+                                  // todo: implement asset image
+                                  return Text(
+                                    'CANT LOAD IMAGE :(',
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                  );
+                                },
+                              ))
+                          // todo: implement asset image
+                          : Container(),
                       Text(
                         article.title ?? '',
                         style: TextStyle(
