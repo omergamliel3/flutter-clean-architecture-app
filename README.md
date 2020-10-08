@@ -20,7 +20,7 @@ A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [
 
 ### Back-end
 - **SQLite**
-- **[NewsAPI]**(https://newsapi.org/) 
+- [NewsAPI](https://newsapi.org/) 
 
 # Author 🙋
 
