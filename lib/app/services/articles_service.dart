@@ -1,10 +1,10 @@
-import 'package:getx_hacker_news_api/app/data/network/api.dart';
+import '../data/network/api.dart';
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:getx_hacker_news_api/app/core/models/article.dart';
-import 'package:getx_hacker_news_api/app/core/models/failure.dart';
-import 'package:getx_hacker_news_api/app/data/local/local_database.dart';
+import '../core/models/article.dart';
+import '../core/models/failure.dart';
+import '../data/local/local_database.dart';
 
 class ArticlesService {
   ArticlesService({@required this.localDatabase, @required this.api});
@@ -23,7 +23,7 @@ class ArticlesService {
       if (articles == null) return Left(Failure('Something went wrong'));
       await localDatabase.saveArticles(articles);
       return Right(articles);
-    } catch (_) {
+    } on Exception catch (_) {
       return Left(Failure('Something went wrong'));
     }
   }
@@ -44,13 +44,13 @@ class ArticlesService {
       if (articlesLength == 0) {
         return null;
       }
-      List<Article> articles = [];
-      for (int i = 0; i < articlesLength; i++) {
+      var articles = <Article>[];
+      for (var i = 0; i < articlesLength; i++) {
         var article = Article.fromJsonMap(rawData['articles'][i]);
         articles.add(article);
       }
       return articles;
-    } catch (_) {
+    } on Exception catch (_) {
       return null;
     }
   }

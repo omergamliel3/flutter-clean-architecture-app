@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:getx_hacker_news_api/app/routes/app_pages.dart';
+import '../../routes/app_pages.dart';
 
 class LoadingController extends GetxController {
   @override

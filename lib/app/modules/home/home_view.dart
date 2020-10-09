@@ -1,13 +1,12 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_hacker_news_api/app/core/assets/constans.dart';
-import 'package:getx_hacker_news_api/app/core/utils/launcher.dart';
-import 'package:getx_hacker_news_api/app/core/widgets/error_widget.dart'
-    as errorWidget;
-import 'package:getx_hacker_news_api/app/core/widgets/keep_alive_wrapper.dart';
-import 'package:getx_hacker_news_api/app/core/widgets/loading_widget.dart';
-import 'package:getx_hacker_news_api/app/modules/home/home_controller.dart';
+import '../../core/assets/constans.dart';
+import '../../core/utils/launcher.dart';
+import '../../core/widgets/error_widget.dart' as error_widget;
+import '../../core/widgets/keep_alive_wrapper.dart';
+import '../../core/widgets/loading_widget.dart';
+import 'home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   Widget appBar() {
@@ -168,7 +167,7 @@ class HomeView extends GetView<HomeController> {
               return LoadingWidget();
               break;
             case ViewState.error:
-              return errorWidget.ErrorWidget();
+              return error_widget.ErrorWidget();
             case ViewState.data:
               return dataWidget();
             default:

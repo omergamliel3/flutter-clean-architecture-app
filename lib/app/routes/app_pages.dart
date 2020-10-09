@@ -1,7 +1,7 @@
-import 'package:getx_hacker_news_api/app/modules/loading/loading_view.dart';
-import 'package:getx_hacker_news_api/app/modules/loading/loading_binding.dart';
-import 'package:getx_hacker_news_api/app/modules/home/home_view.dart';
-import 'package:getx_hacker_news_api/app/modules/home/home_binding.dart';
+import '../modules/loading/loading_view.dart';
+import '../modules/loading/loading_binding.dart';
+import '../modules/home/home_view.dart';
+import '../modules/home/home_binding.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 

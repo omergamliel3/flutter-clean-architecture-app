@@ -3,8 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
-import 'package:getx_hacker_news_api/app/core/models/failure.dart';
-import 'package:getx_hacker_news_api/private/keys.dart';
+import '../../core/models/failure.dart';
+import '../../../private/keys.dart';
 
 class Api {
   final Client client;

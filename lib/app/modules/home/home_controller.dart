@@ -1,9 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import 'package:getx_hacker_news_api/app/core/models/article.dart';
-import 'package:getx_hacker_news_api/app/core/models/failure.dart';
-import 'package:getx_hacker_news_api/app/services/articles_service.dart';
+import '../../core/models/article.dart';
+import '../../core/models/failure.dart';
+import '../../services/articles_service.dart';
 
 enum ViewState { initial, busy, error, data }
 
@@ -40,8 +40,9 @@ class HomeController extends GetxController {
       // automatically evoke remote fetch if device is offline
       // and articles data is empty, null or in local view
       if (event != ConnectivityResult.none &&
-          (_articles == null || _articles.isEmpty || localArticlesView))
+          (_articles == null || _articles.isEmpty || localArticlesView)) {
         remoteFetch();
+      }
     });
   }
 

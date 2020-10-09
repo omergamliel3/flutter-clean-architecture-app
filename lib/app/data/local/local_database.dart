@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'package:getx_hacker_news_api/app/core/models/article.dart';
+import '../../core/models/article.dart';
 
 class LocalDatabase {
   final _kDbFileName = 'sqflite_ex.db';
@@ -106,7 +106,7 @@ class LocalDatabase {
         DELETE FROM $_kDBTableName
       ''');
       return true;
-    } catch (e) {
+    } on Exception catch (e) {
       print(e);
       return false;
     }

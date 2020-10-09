@@ -1,9 +1,9 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart';
 import 'package:get/get.dart';
-import 'package:getx_hacker_news_api/app/data/local/local_database.dart';
-import 'package:getx_hacker_news_api/app/data/network/api.dart';
-import 'package:getx_hacker_news_api/app/services/articles_service.dart';
+import '../data/local/local_database.dart';
+import '../data/network/api.dart';
+import 'articles_service.dart';
 
 // setup services (dependencies) via Get service locator
 Future<void> setupDependencies() async {

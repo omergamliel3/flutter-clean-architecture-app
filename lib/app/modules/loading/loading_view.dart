@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_hacker_news_api/app/modules/loading/loading_controller.dart';
+import 'loading_controller.dart';
 
 class LoadingView extends GetView<LoadingController> {
   @override

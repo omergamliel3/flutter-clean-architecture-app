@@ -22,7 +22,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  effective_dart: ^1.2.4
+  effective_dart: ^1.2.0
   flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
   test: any
