@@ -5,6 +5,7 @@ import 'package:getx_hacker_news_api/app/core/assets/constans.dart';
 import 'package:getx_hacker_news_api/app/core/utils/launcher.dart';
 import 'package:getx_hacker_news_api/app/core/widgets/error_widget.dart'
     as errorWidget;
+import 'package:getx_hacker_news_api/app/core/widgets/keep_alive_wrapper.dart';
 import 'package:getx_hacker_news_api/app/core/widgets/loading_widget.dart';
 import 'package:getx_hacker_news_api/app/modules/home/home_controller.dart';
 
@@ -95,7 +96,7 @@ class HomeView extends GetView<HomeController> {
           itemCount: controller.articles.length,
           itemBuilder: (context, index) {
             var article = controller.articles[index];
-            return InkWell(
+            return GestureDetector(
               onTap: () => launch(article.url),
               child: Container(
                 width: Get.mediaQuery.size.width,
@@ -129,18 +130,20 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget buildImage(String url) {
-    return ClipRRect(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0)),
-        child: FadeInImage.assetNetwork(
-          height: Get.mediaQuery.size.height * 0.3,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          fadeInDuration: Duration(milliseconds: 500),
-          placeholder: loadingAsset,
-          image: url,
-          imageErrorBuilder: (context, obj, error) => buildAssetImage(),
-        ));
+    return KeepAliveWrapper(
+      child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0)),
+          child: FadeInImage.assetNetwork(
+            height: Get.mediaQuery.size.height * 0.3,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            fadeInDuration: Duration(milliseconds: 500),
+            placeholder: loadingAsset,
+            image: url,
+            imageErrorBuilder: (context, obj, error) => buildAssetImage(),
+          )),
+    );
   }
 
   Widget buildAssetImage() {
