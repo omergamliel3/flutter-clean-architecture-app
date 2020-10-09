@@ -21,5 +21,11 @@ class Article {
         url = map['url'],
         urlToImage = map['urlToImage'];
 
-  Map<String, dynamic> toJsonMap() => {'title': title};
+  Map<String, dynamic> toJsonMap() => {
+        'title': title,
+        'content': content,
+        'publishedAt': publishedAt,
+        'url': url,
+        'urlToImage': urlToImage
+      };
 }
