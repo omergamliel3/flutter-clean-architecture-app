@@ -18,8 +18,8 @@ class ArticlesService {
     try {
       List<Article> articles;
       var response = await api.getArticles();
-      response.fold((failure) => Failure(failure.text),
-          (data) => articles = extractData(data));
+      response.fold(
+          (failure) => failure, (data) => articles = extractData(data));
       if (articles == null) return Left(Failure('Something went wrong'));
       await localDatabase.saveArticles(articles);
       return Right(articles);
