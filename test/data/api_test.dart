@@ -30,7 +30,7 @@ void main() {
     });
 
     test(
-        '''when call getArticles with expection should return failure object with 'Someting went wrong message''',
+        '''when call getArticles with expection should return failure object with "Someting went wrong message"''',
         () async {
       var api = Api(client: client);
       when(client.get(api.endpoint)).thenThrow(Exception('http error'));
