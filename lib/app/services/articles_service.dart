@@ -1,40 +1,35 @@
-import 'dart:convert';
-
+import 'package:getx_hacker_news_api/app/data/network/api.dart';
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:getx_hacker_news_api/app/core/models/article.dart';
 import 'package:getx_hacker_news_api/app/core/models/failure.dart';
-import 'package:getx_hacker_news_api/app/data/local_database.dart';
-import 'package:getx_hacker_news_api/private/keys.dart';
+import 'package:getx_hacker_news_api/app/data/local/local_database.dart';
 
 class ArticlesService {
-  ArticlesService({@required this.localDatabase});
+  ArticlesService({@required this.localDatabase, @required this.api});
   // local database
   final LocalDatabase localDatabase;
+  // api
+  final Api api;
 
   /// return either failure or list of articles
-  Future<Either<Failure, List<Article>>> fetchArticles() async {
+  Future<Either<Failure, List<Article>>> getNetworkArticles() async {
     try {
-      var response = await http.get(endpoint);
-      if (response.statusCode != 200) {
-        var error =
-            json.decode(response.body)['message'] as String ?? 'API error';
-        return Left(Failure(error));
-      }
-      var data = extractData(response);
-      if (data == null) return Left(Failure('Something went wrong'));
-      await localDatabase.saveArticles(data);
-      return Right(data);
-    } catch (e) {
-      print(e);
+      List<Article> articles;
+      var response = await api.getArticles();
+      response.fold((failure) => Failure(failure.text),
+          (data) => articles = extractData(data));
+      if (articles == null) return Left(Failure('Something went wrong'));
+      await localDatabase.saveArticles(articles);
+      return Right(articles);
+    } catch (_) {
       return Left(Failure('Something went wrong'));
     }
   }
 
   /// return either failure or list of articles from saved local database
-  Future<Either<Failure, List<Article>>> fetchLocalSavedArticles() async {
+  Future<Either<Failure, List<Article>>> getLocalArticles() async {
     var articles = await localDatabase.getArticles();
     if (articles == null || articles.isEmpty) {
       return Left(Failure('No articles saved locally'));
@@ -43,9 +38,8 @@ class ArticlesService {
   }
 
   /// extract data from http api response
-  List<Article> extractData(http.Response response) {
+  List<Article> extractData(Map<String, dynamic> rawData) {
     try {
-      var rawData = json.decode(response.body) as Map<String, dynamic>;
       var articlesLength = rawData['articles'].length;
       if (articlesLength == 0) {
         return null;
@@ -56,8 +50,7 @@ class ArticlesService {
         articles.add(article);
       }
       return articles;
-    } catch (e) {
-      print(e);
+    } catch (_) {
       return null;
     }
   }

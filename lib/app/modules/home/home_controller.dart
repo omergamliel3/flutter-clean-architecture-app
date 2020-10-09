@@ -63,7 +63,7 @@ class HomeController extends GetxController {
       return;
     }
     _setState(ViewState.busy);
-    var result = await service.fetchArticles();
+    var result = await service.getNetworkArticles();
     _handleFetchResult(result);
   }
 
@@ -72,7 +72,7 @@ class HomeController extends GetxController {
     localArticlesView = true;
     if (viewState.value == ViewState.busy) return;
     _setState(ViewState.busy);
-    var result = await service.fetchLocalSavedArticles();
+    var result = await service.getLocalArticles();
     _handleFetchResult(result, true);
   }
 
