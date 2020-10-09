@@ -82,13 +82,13 @@ class HomeController extends GetxController {
     result.fold((feilure) {
       _articles?.clear();
       _setState(ViewState.error);
-      Get.snackbar('Loaded failed!', '$feilure',
+      Get.snackbar('Refresh failed!', '$feilure',
           snackPosition: SnackPosition.BOTTOM);
     }, (data) {
       _articles = data;
       _setState(ViewState.data);
       var notifyLocal = local ? '(offline mode)' : '';
-      Get.snackbar('Loaded successfuly!',
+      Get.snackbar('Refresh successfuly!',
           ' ${_articles.length} new articles ready for reading $notifyLocal',
           snackPosition: SnackPosition.BOTTOM);
     });
