@@ -1,7 +1,11 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_hacker_news_api/app/core/assets/constans.dart';
 import 'package:getx_hacker_news_api/app/core/utils/launcher.dart';
+import 'package:getx_hacker_news_api/app/core/widgets/error_widget.dart'
+    as errorWidget;
+import 'package:getx_hacker_news_api/app/core/widgets/loading_widget.dart';
 import 'package:getx_hacker_news_api/app/modules/home/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -73,38 +77,6 @@ class HomeView extends GetView<HomeController> {
         ));
   }
 
-  Widget initialWidget() {
-    return const Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-      ),
-    );
-  }
-
-  Widget busyWidget() {
-    return const Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
-      ),
-    );
-  }
-
-  Widget errorWidget() {
-    return Center(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'Something went wrong',
-          style: TextStyle(
-            fontSize: 24,
-            color: Colors.black,
-          ),
-        ),
-      ],
-    ));
-  }
-
   Widget dataWidget() {
     if (controller.articles.length == 0) {
       const Center(
@@ -134,26 +106,8 @@ class HomeView extends GetView<HomeController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       article.urlToImage != null
-                          ? ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0)),
-                              child: Image.network(
-                                article.urlToImage,
-                                fit: BoxFit.cover,
-                                height: Get.mediaQuery.size.height * 0.3,
-                                width: double.infinity,
-                                errorBuilder: (context, error, stackTrace) {
-                                  // todo: implement asset image
-                                  return Text(
-                                    'CANT LOAD IMAGE :(',
-                                    style:
-                                        Theme.of(context).textTheme.headline3,
-                                  );
-                                },
-                              ))
-                          // todo: implement asset image
-                          : Container(),
+                          ? buildImage(article.urlToImage)
+                          : buildAssetImage(),
                       Text(
                         article.title ?? '',
                         style: TextStyle(
@@ -174,6 +128,30 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget buildImage(String url) {
+    return ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(4.0), topRight: Radius.circular(4.0)),
+        child: FadeInImage.assetNetwork(
+          height: Get.mediaQuery.size.height * 0.3,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          fadeInDuration: Duration(milliseconds: 500),
+          placeholder: loadingAsset,
+          image: url,
+          imageErrorBuilder: (context, obj, error) => buildAssetImage(),
+        ));
+  }
+
+  Widget buildAssetImage() {
+    return Image.asset(
+      placeholderAsset,
+      height: Get.mediaQuery.size.height * 0.3,
+      width: double.infinity,
+      fit: BoxFit.cover,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -184,14 +162,14 @@ class HomeView extends GetView<HomeController> {
         body: Obx(() {
           switch (controller.viewState.value) {
             case ViewState.busy:
-              return busyWidget();
+              return LoadingWidget();
               break;
             case ViewState.error:
-              return errorWidget();
+              return errorWidget.ErrorWidget();
             case ViewState.data:
               return dataWidget();
             default:
-              return initialWidget();
+              return LoadingWidget();
           }
         }),
         floatingActionButton: floatingActionButton(),
