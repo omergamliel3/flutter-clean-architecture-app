@@ -25,11 +25,13 @@ dev_dependencies:
   effective_dart: ^1.2.4
   flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
-  
+  test: any
+  mockito:
+
 # flutter icons setup
 flutter_icons:
-  android: true 
-  ios: true 
+  android: true
+  ios: true
   image_path: "assets/images/icon.png"
 
 # flutter splash screen setup
@@ -41,5 +43,5 @@ flutter_native_splash:
 flutter:
   uses-material-design: true
   assets:
-  - assets/images/loading.jpg
-  - assets/images/placeHolder.jpg
+    - assets/images/loading.jpg
+    - assets/images/placeHolder.jpg
