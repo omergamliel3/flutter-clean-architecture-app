@@ -31,7 +31,7 @@ A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [
 - **When fetching new data from the api, the data is stored locally, so the user can read the articles while offline. The articles shown in offline mode are the latest fetched articles.**
 - **'REFRESH' botton functionality - show error message when the user try to load new data when device is offline, or fetching new data from the api ends with a failure**
 - **fetch articles functionality - return with either data (articles), or feilure (http error, empty data, offline state). Update view according to the value returned from the function (data widget, failure widget)**
-
+- **Note: The main view state managment controller implemented twice - first with GetX, second with BloC (for comparison purpuse)**
 
 # Author 🙋
 
