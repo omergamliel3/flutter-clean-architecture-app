@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import '../models/articles_model.dart';
+
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-
-import '../../core/models/article_model.dart';
 
 class ArticlesLocalDatasource {
   final _kDbFileName = 'sqflite_ex.db';
@@ -62,7 +62,7 @@ class ArticlesLocalDatasource {
   }
 
   /// save articles
-  Future<bool> saveArticles(List<Article> articles) async {
+  Future<bool> saveArticles(List<ArticleModel> articles) async {
     if (articles == null || articles.isEmpty) return false;
     await deleteAllArticles();
     articles = validateData(articles);
@@ -113,18 +113,18 @@ class ArticlesLocalDatasource {
   }
 
   /// get all saved articles from db
-  Future<List<Article>> getArticles() async {
+  Future<List<ArticleModel>> getArticles() async {
     List<Map> jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
-    return jsons.map((e) => Article.fromJsonMap(e)).toList();
+    return jsons.map((e) => ArticleModel.fromJsonMap(e)).toList();
   }
 
   /// validate Articles data to evoid database exception
-  List<Article> validateData(List<Article> articles) {
-    var validArticles = <Article>[];
+  List<ArticleModel> validateData(List<ArticleModel> articles) {
+    var validArticles = <ArticleModel>[];
     for (var article in articles) {
       var validTitle = article.title?.replaceAll('\"', '\'');
       var validContent = article.content?.replaceAll('\"', '\'');
-      var validArticle = Article(
+      var validArticle = ArticleModel(
           title: validTitle,
           content: validContent,
           publishedAt: article.publishedAt,

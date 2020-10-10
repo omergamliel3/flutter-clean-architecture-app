@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../core/models/article_model.dart';
-import '../../core/models/failure.dart';
+import '../../domain/entities/article.dart';
+import '../../core/errors/failure.dart';
 
 abstract class ArticlesRepository {
   Future<Either<Failure, List<Article>>> getRemoteArticles();

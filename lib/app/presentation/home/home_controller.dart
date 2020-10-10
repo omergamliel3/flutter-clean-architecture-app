@@ -6,8 +6,8 @@ import '../../domain/usecases/get_local_articles.dart';
 import '../../domain/usecases/get_remote_articles.dart';
 
 import '../../core/network/network_info.dart';
-import '../../core/models/article_model.dart';
-import '../../core/models/failure.dart';
+import '../../domain/entities/article.dart';
+import '../../core/errors/failure.dart';
 
 enum ViewState { initial, busy, error, data }
 

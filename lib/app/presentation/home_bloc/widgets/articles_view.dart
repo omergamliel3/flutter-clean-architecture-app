@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/widgets/index.dart' as core_widgets;
-import '../../../core/models/article_model.dart';
+import '../../../domain/entities/article.dart';
+
 import '../../../core/utils/launcher.dart';
 
 class ArticlesView extends StatelessWidget {

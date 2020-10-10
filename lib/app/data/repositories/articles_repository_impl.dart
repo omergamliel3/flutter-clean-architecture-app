@@ -1,11 +1,13 @@
-import '../../core/models/article_model.dart';
-import '../../core/models/failure.dart';
-import '../datasources/articles_local_datasource.dart';
-import '../datasources/articles_remote_datasource.dart';
-import '../../domain/repositories/articles_repository.dart';
-
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
+
+import '../datasources/articles_local_datasource.dart';
+import '../datasources/articles_remote_datasource.dart';
+
+import '../../domain/entities/article.dart';
+import '../../domain/repositories/articles_repository.dart';
+
+import '../../core/errors/failure.dart';
 
 class ArticlesRepositoryImpl implements ArticlesRepository {
   ArticlesRepositoryImpl(
@@ -21,8 +23,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
     try {
       List<Article> articles;
       var response = await remoteDataSource.getArticles();
-      response.fold(
-          (failure) => failure, (data) => articles = extractData(data));
+      response.fold((failure) => failure, (data) => articles = data);
       if (articles == null) return Left(Failure('Something went wrong'));
       await localDataSource.saveArticles(articles);
       return Right(articles);
@@ -39,23 +40,5 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
       return Left(Failure('No articles saved locally'));
     }
     return Right(articles);
-  }
-
-  /// extract data from http api response
-  List<Article> extractData(Map<String, dynamic> rawData) {
-    try {
-      var articlesLength = rawData['articles'].length;
-      if (articlesLength == 0) {
-        return null;
-      }
-      var articles = <Article>[];
-      for (var i = 0; i < articlesLength; i++) {
-        var article = Article.fromJsonMap(rawData['articles'][i]);
-        articles.add(article);
-      }
-      return articles;
-    } on Exception catch (_) {
-      return null;
-    }
   }
 }

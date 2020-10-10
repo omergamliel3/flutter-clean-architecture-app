@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:getx_hacker_news_api/app/core/models/failure.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/data/models/articles_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,10 +22,10 @@ void main() {
       var remoteDatasource = ArticlesRemoteDatasource(client: client);
       when(client.get(remoteDatasource.endpoint)).thenAnswer(
           (realInvocation) => Future.value(http.Response(fakeData, 200)));
-      Map<String, dynamic> data;
+      List<ArticleModel> data;
       var res = await remoteDatasource.getArticles();
       res.fold((failure) => null, (res) => data = res);
-      expect(data, json.decode(fakeData));
+      expect(data.length, 2);
     });
 
     test(
@@ -35,7 +34,7 @@ void main() {
       var remoteDatasource = ArticlesRemoteDatasource(client: client);
       when(client.get(remoteDatasource.endpoint))
           .thenThrow(Exception('http error'));
-      Map<String, dynamic> data;
+      List<ArticleModel> data;
       Failure failure;
       var res = await remoteDatasource.getArticles();
       res.fold((fail) => failure = fail, (res) => data = res);
@@ -50,7 +49,7 @@ void main() {
       var remoteDatasource = ArticlesRemoteDatasource(client: client);
       when(client.get(remoteDatasource.endpoint)).thenAnswer((realInvocation) =>
           Future.value(http.Response('{"message": "$errorMsg"}', 404)));
-      Map<String, dynamic> data;
+      List<ArticleModel> data;
       Failure failure;
       var res = await remoteDatasource.getArticles();
       res.fold((fail) => failure = fail, (res) => data = res);
