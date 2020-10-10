@@ -14,7 +14,8 @@ A simple articles news reader app, using [Getx](https://pub.dev/packages/get), [
 
 ### Front-end
 - **Flutter SDK**
-- **GetX (for state managment, navigation service, dependencies manager)**
+- **GetX(navigation service, dependencies manager)**
+- **BloC (state managment) / GetX (state managment)**
 
 ### Back-end
 - **SQLite**
