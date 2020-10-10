@@ -6,9 +6,9 @@ import 'package:meta/meta.dart';
 import '../../core/models/failure.dart';
 import '../../../private/keys.dart';
 
-class Api {
+class ArticlesRemoteDatasource {
   final Client client;
-  Api({@required this.client});
+  ArticlesRemoteDatasource({@required this.client});
   // api endpoint
   final String endpoint =
       'https://newsapi.org/v2/top-headlines?language=en&pageSize=100&apiKey=$newsApiKey';

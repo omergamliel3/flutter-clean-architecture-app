@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../../core/models/article.dart';
+import '../../core/models/article_model.dart';
 
-class LocalDatabase {
+class ArticlesLocalDatasource {
   final _kDbFileName = 'sqflite_ex.db';
   final _kDBTableName = 'articles_table';
   Database _db;

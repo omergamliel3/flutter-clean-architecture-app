@@ -1,27 +1,30 @@
-import '../data/network/api.dart';
+import '../../core/models/article_model.dart';
+import '../../core/models/failure.dart';
+import '../datasources/articles_local_datasource.dart';
+import '../datasources/articles_remote_datasource.dart';
+import '../../domain/repositories/articles_repository.dart';
+
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
 
-import '../core/models/article.dart';
-import '../core/models/failure.dart';
-import '../data/local/local_database.dart';
-
-class ArticlesService {
-  ArticlesService({@required this.localDatabase, @required this.api});
-  // local database
-  final LocalDatabase localDatabase;
-  // api
-  final Api api;
+class ArticlesRepositoryImpl implements ArticlesRepository {
+  ArticlesRepositoryImpl(
+      {@required this.localDataSource, @required this.remoteDataSource});
+  // local data source
+  final ArticlesLocalDatasource localDataSource;
+  // remote data source
+  final ArticlesRemoteDatasource remoteDataSource;
 
   /// return either failure or list of articles
+  @override
   Future<Either<Failure, List<Article>>> getNetworkArticles() async {
     try {
       List<Article> articles;
-      var response = await api.getArticles();
+      var response = await remoteDataSource.getArticles();
       response.fold(
           (failure) => failure, (data) => articles = extractData(data));
       if (articles == null) return Left(Failure('Something went wrong'));
-      await localDatabase.saveArticles(articles);
+      await localDataSource.saveArticles(articles);
       return Right(articles);
     } on Exception catch (_) {
       return Left(Failure('Something went wrong'));
@@ -29,8 +32,9 @@ class ArticlesService {
   }
 
   /// return either failure or list of articles from saved local database
+  @override
   Future<Either<Failure, List<Article>>> getLocalArticles() async {
-    var articles = await localDatabase.getArticles();
+    var articles = await localDataSource.getArticles();
     if (articles == null || articles.isEmpty) {
       return Left(Failure('No articles saved locally'));
     }

@@ -9,3 +9,4 @@ linter:
     use_setters_to_change_properties: false
     avoid_classes_with_only_static_members: false
     constant_identifier_names: false
+    file_names: false

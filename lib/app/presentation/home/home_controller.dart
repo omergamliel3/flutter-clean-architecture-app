@@ -1,15 +1,16 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import '../../core/models/article.dart';
+
+import '../../core/models/article_model.dart';
 import '../../core/models/failure.dart';
-import '../../services/articles_service.dart';
+import '../../data/repositories/articles_repository_impl.dart';
 
 enum ViewState { initial, busy, error, data }
 
 class HomeController extends GetxController {
   // articles service
-  final service = Get.find<ArticlesService>();
+  final service = Get.find<ArticlesRepositoryImpl>();
   final connectivity = Get.find<Connectivity>();
   // view state reactive value
   final viewState = ViewState.initial.obs;

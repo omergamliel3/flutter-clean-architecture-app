@@ -1,7 +1,5 @@
-import '../modules/loading/loading_view.dart';
-import '../modules/loading/loading_binding.dart';
-import '../modules/home/home_view.dart';
-import '../modules/home/home_binding.dart';
+import '../presentation/index.dart';
+
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
