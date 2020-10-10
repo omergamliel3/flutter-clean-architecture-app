@@ -17,7 +17,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
 
   /// return either failure or list of articles
   @override
-  Future<Either<Failure, List<Article>>> getNetworkArticles() async {
+  Future<Either<Failure, List<Article>>> getRemoteArticles() async {
     try {
       List<Article> articles;
       var response = await remoteDataSource.getArticles();
