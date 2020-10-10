@@ -2,6 +2,8 @@ import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
+import 'app/presentation/home_bloc/bloc/bloc.dart';
+
 import 'app/core/network/network_info.dart';
 
 import 'app/data/datasources/articles_local_datasource.dart';
@@ -15,12 +17,14 @@ import 'app/domain/usecases/get_remote_articles.dart';
 
 // inject app dependencies components
 Future<void> init() async {
+  ///! Bloc state managment, comment if you are using GetX state managment
+  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(ArticlesInitial()));
+
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
       () => ArticlesRemoteDatasource(client: http.Client()));
   Get.lazyPut(() => ArticlesLocalDatasource());
   // Initalise local data source
-  await Get.find<ArticlesLocalDatasource>().deleteDB();
   await Get.find<ArticlesLocalDatasource>().initDb();
   // Use cases
   Get.lazyPut<GetLocalArticles>(

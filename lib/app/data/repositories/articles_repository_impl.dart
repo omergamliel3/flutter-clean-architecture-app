@@ -37,7 +37,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   Future<Either<Failure, List<Article>>> getLocalArticles() async {
     var articles = await localDataSource.getArticles();
     if (articles == null || articles.isEmpty) {
-      return Left(Failure('No articles saved locally'));
+      return Left(Failure('No internet connection'));
     }
     return Right(articles);
   }

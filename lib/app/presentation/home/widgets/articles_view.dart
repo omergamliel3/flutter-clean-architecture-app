@@ -17,7 +17,7 @@ class ArticlesView extends StatelessWidget {
   Widget build(BuildContext context) {
     if (articles.length == 0) {
       return core_widgets.ErrorWidget(
-        message: 'Can not find articles :(',
+        'Can not find articles :(',
       );
     }
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/bloc.dart';
 
 class FAB extends StatelessWidget {
-  final VoidCallback callback;
-  const FAB({this.callback});
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-        onPressed: callback,
+        onPressed: () => BlocProvider.of<ArticlesBloc>(context).add(GetData()),
         backgroundColor: Colors.amber,
         icon: const Icon(
           Icons.refresh,

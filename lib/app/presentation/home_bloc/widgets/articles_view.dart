@@ -2,29 +2,30 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../core/widgets/index.dart' as core_widgets;
 import '../../../domain/entities/article.dart';
 
+import '../../../core/widgets/index.dart' as core_widgets;
 import '../../../core/utils/launcher.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../bloc/bloc.dart';
 
 class ArticlesView extends StatelessWidget {
   final List<Article> articles;
-  final Function fetch;
-  const ArticlesView({this.articles, this.fetch});
+  const ArticlesView({this.articles});
 
   @override
   Widget build(BuildContext context) {
     if (articles.length == 0) {
       return core_widgets.ErrorWidget(
-        message: 'Can not find articles :(',
+        'Can not find articles :(',
       );
     }
-
     var targetHeight = Get.mediaQuery.size.height * 0.3;
     return Container(
       child: RefreshIndicator(
         onRefresh: () async {
-          await fetch();
+          await BlocProvider.of<ArticlesBloc>(context).add(GetData());
         },
         child: ListView.builder(
           itemCount: articles.length,
