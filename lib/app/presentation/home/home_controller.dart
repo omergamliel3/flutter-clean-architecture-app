@@ -90,7 +90,7 @@ class HomeController extends GetxController {
     result.fold((feilure) {
       _articles?.clear();
       _setState(ViewState.error);
-      Get.snackbar('Refresh failed!', '$feilure',
+      Get.snackbar('Refresh failed!', 'Can\'t load articles',
           snackPosition: SnackPosition.BOTTOM);
     }, (data) {
       _articles = data;

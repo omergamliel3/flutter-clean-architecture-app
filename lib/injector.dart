@@ -20,6 +20,7 @@ Future<void> init() async {
       () => ArticlesRemoteDatasource(client: http.Client()));
   Get.lazyPut(() => ArticlesLocalDatasource());
   // Initalise local data source
+  await Get.find<ArticlesLocalDatasource>().deleteDB();
   await Get.find<ArticlesLocalDatasource>().initDb();
   // Use cases
   Get.lazyPut<GetLocalArticles>(
