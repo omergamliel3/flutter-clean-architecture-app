@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart' as get_x;
@@ -22,13 +25,13 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   final getLocalArticles = get_x.Get.find<GetLocalArticles>();
 
   // state history
-  final stateHistory = <ArticlesState>[ArticlesInitial()];
+  final stateHistory = <ArticlesState>[Initial()];
 
   @override
   Stream<ArticlesState> mapEventToState(ArticlesEvent event) async* {
     // handle GetData event
     if (event is GetData) {
-      yield ArticlesLoading();
+      yield Loading();
       // check for network connection
       final connectivity = await network.isConnected();
       Either<Failure, List<Article>> failureOrArticles;
@@ -36,13 +39,24 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
         failureOrArticles = await getRemoteArticles.call();
       } else {
         failureOrArticles = await getLocalArticles.call();
+        waitForConnectivityAndNotifyGetDataEvent();
         get_x.Get.snackbar('Offline mode', 'There is no internet connection',
             snackPosition: get_x.SnackPosition.BOTTOM);
       }
       // yield new ArticlesState
-      yield failureOrArticles.fold((failure) => ArticlesError(failure),
-          (articles) => ArticlesSuccess(articles));
+      yield failureOrArticles.fold(
+          (failure) => Error(failure), (articles) => Success(articles));
     }
+  }
+
+  void waitForConnectivityAndNotifyGetDataEvent() {
+    StreamSubscription subscription;
+    subscription = network.onConnectivityChanged.listen((event) {
+      if (event != ConnectivityResult.none) {
+        subscription.cancel();
+        add(GetData());
+      }
+    });
   }
 
   @override

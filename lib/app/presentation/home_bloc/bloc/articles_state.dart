@@ -9,31 +9,31 @@ abstract class ArticlesState extends Equatable {
   const ArticlesState();
 }
 
-class ArticlesInitial extends ArticlesState {
-  const ArticlesInitial();
+class Initial extends ArticlesState {
+  const Initial();
 
   @override
   List<Object> get props => [];
 }
 
-class ArticlesLoading extends ArticlesState {
-  const ArticlesLoading();
+class Loading extends ArticlesState {
+  const Loading();
 
   @override
   List<Object> get props => [];
 }
 
-class ArticlesSuccess extends ArticlesState {
+class Success extends ArticlesState {
   final List<Article> articles;
-  ArticlesSuccess(this.articles);
+  Success(this.articles);
 
   @override
   List<Object> get props => [articles];
 }
 
-class ArticlesError extends ArticlesState {
+class Error extends ArticlesState {
   final Failure failure;
-  const ArticlesError(this.failure);
+  const Error(this.failure);
 
   List<Object> get props => [failure];
 }

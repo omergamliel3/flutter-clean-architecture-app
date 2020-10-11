@@ -6,7 +6,7 @@ import 'injector.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
+  await injectDependencies();
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,

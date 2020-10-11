@@ -7,7 +7,7 @@ import 'home_controller.dart';
 import '../../core/widgets/index.dart' as core_widgets;
 import 'widgets/widgets.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeViewGetX extends GetView<HomeController> {
   Widget appBar() {
     return AppBar(
       elevation: 8.0,

@@ -16,9 +16,9 @@ import 'app/domain/usecases/get_local_articles.dart';
 import 'app/domain/usecases/get_remote_articles.dart';
 
 // inject app dependencies
-Future<void> init() async {
-  ///! Bloc state managment, comment if you are using GetX state managment
-  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(ArticlesInitial()));
+Future<void> injectDependencies() async {
+  ///! HomeViewBloc dependency. comment if you are using HomeViewGetX
+  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(Initial()));
 
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(

@@ -8,7 +8,7 @@ import '../../../core/widgets/index.dart' as core_widgets;
 
 import '../widgets/widgets.dart';
 
-class ArticlesPageView extends StatelessWidget {
+class HomeViewBloc extends StatelessWidget {
   Widget appBar() {
     return AppBar(
       elevation: 8.0,
@@ -40,16 +40,16 @@ class ArticlesPageView extends StatelessWidget {
   Widget buildBody(BuildContext context) {
     return BlocBuilder<ArticlesBloc, ArticlesState>(
       builder: (context, state) {
-        if (state is ArticlesInitial) {
+        if (state is Initial) {
           return core_widgets.LoadingWidget();
         }
-        if (state is ArticlesLoading) {
+        if (state is Loading) {
           return core_widgets.LoadingWidget();
         }
-        if (state is ArticlesError) {
+        if (state is Error) {
           return core_widgets.ErrorWidget(state.failure.message);
         }
-        if (state is ArticlesSuccess) {
+        if (state is Success) {
           return ArticlesView(articles: state.articles);
         }
         // default widget
