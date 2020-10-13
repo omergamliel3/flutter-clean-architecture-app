@@ -29,12 +29,12 @@ class ArticlesView extends StatelessWidget {
             children: [
               Text(formattedTime),
               Text(
-                article.title ?? '',
+                article.title,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                article.content ?? '',
+                article.content,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
