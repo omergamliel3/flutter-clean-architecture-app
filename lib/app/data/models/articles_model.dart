@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class ArticleModel extends Article {
   final String title;
   final String content;
-  final String publishedAt;
+  final DateTime publishedAt;
   final String url;
   final String urlToImage;
   ArticleModel({
@@ -38,7 +38,7 @@ class ArticleModel extends Article {
     return {
       'title': title,
       'content': content,
-      'publishedAt': publishedAt,
+      'publishedAt': publishedAt.toIso8601String(),
       'url': url,
       'urlToImage': urlToImage,
     };
@@ -50,7 +50,7 @@ class ArticleModel extends Article {
     return ArticleModel(
       title: map['title'],
       content: map['content'],
-      publishedAt: map['publishedAt'],
+      publishedAt: DateTime.parse(map['publishedAt']),
       url: map['url'],
       urlToImage: map['urlToImage'],
     );

@@ -83,7 +83,7 @@ class ArticlesLocalDatasource {
             (
               "${article.title}",
               "${article.content}",
-              "${article.publishedAt}",
+              "${article.publishedAt.toIso8601String()}",
               "${article.url}",
               "${article.urlToImage}"
             )''');
