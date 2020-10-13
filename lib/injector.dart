@@ -23,7 +23,11 @@ Future<void> injectDependencies() async {
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
       () => ArticlesRemoteDatasource(client: http.Client()));
-  Get.putAsync(() => ArticlesLocalDatasource().initDb());
+  Get.putAsync(() async {
+    var service = ArticlesLocalDatasource();
+    await service.initDb();
+    return service;
+  });
 
   // Use cases
   Get.lazyPut<GetLocalArticles>(
