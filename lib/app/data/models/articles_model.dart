@@ -48,11 +48,11 @@ class ArticleModel extends Article {
     if (map == null) return null;
 
     return ArticleModel(
-      title: map['title'],
+      title: map['title'] ?? '',
       content: map['content'],
       publishedAt: DateTime.parse(map['publishedAt']),
-      url: map['url'],
-      urlToImage: map['urlToImage'],
+      url: map['url'] ?? '',
+      urlToImage: map['urlToImage'] ?? '',
     );
   }
 
