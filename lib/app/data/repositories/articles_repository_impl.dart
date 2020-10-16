@@ -27,7 +27,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
           await localDataSource.saveArticles(articles);
           return Right(articles);
         }
-        return const Left(Failure('Something went wrong'));
+        return const Left(Failure('Can not find articles right now'));
       });
     } on Exception catch (_) {
       return const Left(Failure('Something went wrong'));
