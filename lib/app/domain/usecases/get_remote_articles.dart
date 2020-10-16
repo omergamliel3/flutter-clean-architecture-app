@@ -13,6 +13,6 @@ class GetRemoteArticles implements UseCase<List<Article>> {
   GetRemoteArticles(this.repository);
   @override
   Future<Either<Failure, List<Article>>> call() async {
-    return await repository.getRemoteArticles();
+    return repository.getRemoteArticles();
   }
 }

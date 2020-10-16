@@ -13,7 +13,7 @@ class NetworkInfo implements NetworkInfoI {
 
   @override
   Future<bool> isConnected() async {
-    var result = await connectivity.checkConnectivity();
+    final result = await connectivity.checkConnectivity();
     if (result != ConnectivityResult.none) {
       return true;
     }
@@ -22,7 +22,7 @@ class NetworkInfo implements NetworkInfoI {
 
   @override
   Future<ConnectivityResult> get connectivityResult async {
-    return await connectivity.checkConnectivity();
+    return connectivity.checkConnectivity();
   }
 
   @override

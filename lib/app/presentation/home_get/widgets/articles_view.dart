@@ -15,12 +15,12 @@ class ArticlesView extends StatelessWidget {
   const ArticlesView({this.articles, this.fetch});
 
   Widget buildArticleTile(Article article) {
-    var formattedTime =
+    final formattedTime =
         DateFormat('dd MMM - HH:mm').format(article.publishedAt);
     return Row(
       children: [
         core_widgets.ImageHandlerWidget(urlToImage: article.urlToImage),
-        SizedBox(
+        const SizedBox(
           width: 16.0,
         ),
         Flexible(
@@ -31,7 +31,8 @@ class ArticlesView extends StatelessWidget {
               Text(
                 article.title,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
                 article.content,
@@ -47,30 +48,28 @@ class ArticlesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (articles.length == 0) {
-      return core_widgets.ErrorWidget(
+    if (articles.isEmpty) {
+      return const core_widgets.ErrorWidget(
         'Can not find articles :(',
       );
     }
 
-    return Container(
-      child: RefreshIndicator(
-        onRefresh: () async {
-          await fetch();
+    return RefreshIndicator(
+      onRefresh: () async {
+        await fetch();
+      },
+      child: ListView.builder(
+        itemCount: articles.length,
+        itemBuilder: (context, index) {
+          final article = articles[index];
+          return GestureDetector(
+            onTap: () => launch(article.url),
+            child: Container(
+              height: 100,
+              child: buildArticleTile(article),
+            ),
+          );
         },
-        child: ListView.builder(
-          itemCount: articles.length,
-          itemBuilder: (context, index) {
-            var article = articles[index];
-            return GestureDetector(
-              onTap: () => launch(article.url),
-              child: Container(
-                height: 100,
-                child: buildArticleTile(article),
-              ),
-            );
-          },
-        ),
       ),
     );
   }

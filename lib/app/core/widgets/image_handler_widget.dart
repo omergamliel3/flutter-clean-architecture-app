@@ -17,10 +17,11 @@ class ImageHandlerWidget extends StatelessWidget {
             aspectRatio: 1,
             child: FadeInImage.assetNetwork(
               fit: BoxFit.cover,
-              fadeInDuration: Duration(milliseconds: 500),
+              fadeInDuration: const Duration(milliseconds: 500),
               placeholder: loadingAsset,
               image: urlToImage,
-              imageErrorBuilder: (context, obj, error) => AssetImageWidget(),
+              imageErrorBuilder: (context, obj, error) =>
+                  const AssetImageWidget(),
             ),
           )),
     );

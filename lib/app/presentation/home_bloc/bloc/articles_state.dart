@@ -25,7 +25,7 @@ class Loading extends ArticlesState {
 
 class Success extends ArticlesState {
   final List<Article> articles;
-  Success(this.articles);
+  const Success(this.articles);
 
   @override
   List<Object> get props => [articles];
@@ -35,5 +35,6 @@ class Error extends ArticlesState {
   final Failure failure;
   const Error(this.failure);
 
+  @override
   List<Object> get props => [failure];
 }

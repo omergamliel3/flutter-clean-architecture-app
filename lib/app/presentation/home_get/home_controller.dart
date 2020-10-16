@@ -31,7 +31,7 @@ class HomeController extends GetxController {
   bool localArticlesView = false;
 
   @override
-  void onInit() async {
+  Future onInit() async {
     // check for connectivity
     connectvityResult.value = await network.connectivityResult;
 
@@ -65,13 +65,13 @@ class HomeController extends GetxController {
     localArticlesView = false;
     if (viewState.value == ViewState.busy) return;
     if (connectvityResult.value == ConnectivityResult.none) {
-      Get.snackbar('Can\'t refresh when offline',
-          'Please connect your device to wifi or mobile network',
+      Get.snackbar("Can't refresh when offline",
+          "Please connect your device to wifi or mobile network",
           snackPosition: SnackPosition.BOTTOM);
       return;
     }
     _setState(ViewState.busy);
-    var result = await getRemoteArticles.call();
+    final result = await getRemoteArticles.call();
     _handleFetchResult(result);
   }
 
@@ -80,7 +80,7 @@ class HomeController extends GetxController {
     localArticlesView = true;
     if (viewState.value == ViewState.busy) return;
     _setState(ViewState.busy);
-    var result = await getLocalArticles.call();
+    final result = await getLocalArticles.call();
     _handleFetchResult(result, true);
   }
 
@@ -90,12 +90,12 @@ class HomeController extends GetxController {
     result.fold((feilure) {
       _articles?.clear();
       _setState(ViewState.error);
-      Get.snackbar('Refresh failed!', 'Can\'t load articles',
+      Get.snackbar('Refresh failed!', "Can't load articles",
           snackPosition: SnackPosition.BOTTOM);
     }, (data) {
       _articles = data;
       _setState(ViewState.data);
-      var notifyLocal = local ? '(offline mode)' : '';
+      final notifyLocal = local ? '(offline mode)' : '';
       Get.snackbar('Refresh successfuly!',
           ' ${_articles.length} new articles ready for reading $notifyLocal',
           snackPosition: SnackPosition.BOTTOM);

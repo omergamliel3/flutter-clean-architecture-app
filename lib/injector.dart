@@ -18,13 +18,13 @@ import 'app/domain/usecases/get_remote_articles.dart';
 // inject app dependencies
 Future<void> injectDependencies() async {
   ///! HomeViewBloc dependency. comment if you are using HomeViewGetX
-  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(Initial()));
+  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(const Initial()));
 
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
       () => ArticlesRemoteDatasource(client: http.Client()));
   Get.putAsync(() async {
-    var service = ArticlesLocalDatasource();
+    final service = ArticlesLocalDatasource();
     await service.initDb();
     return service;
   });

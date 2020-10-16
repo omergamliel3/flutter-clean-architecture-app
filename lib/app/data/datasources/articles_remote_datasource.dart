@@ -20,12 +20,13 @@ class ArticlesRemoteDatasource {
   /// return decoded data as Map if status code is 200
   Future<Either<Failure, List<ArticleModel>>> getArticles() async {
     try {
-      var response = await client.get(endpoint);
+      final response = await client.get(endpoint);
       if (response.statusCode != 200) {
-        var error = json.decode(response.body)['message'] as String ?? errorMsg;
+        final error =
+            json.decode(response.body)['message'] as String ?? errorMsg;
         return Left(Failure(error));
       }
-      var data = json.decode(response.body) as Map<String, dynamic>;
+      final data = json.decode(response.body) as Map<String, dynamic>;
       return Right(extractData(data));
     } on Exception catch (_) {
       return Left(Failure(errorMsg));
@@ -35,13 +36,14 @@ class ArticlesRemoteDatasource {
   /// extract data from http api response
   List<ArticleModel> extractData(Map<String, dynamic> rawData) {
     try {
-      var articlesLength = rawData['articles'].length;
+      final articlesLength = rawData['articles'].length as int;
       if (articlesLength == 0) {
         return null;
       }
-      var articles = <ArticleModel>[];
+      final articles = <ArticleModel>[];
       for (var i = 0; i < articlesLength; i++) {
-        var article = ArticleModel.fromJsonMap(rawData['articles'][i]);
+        final data = rawData['articles'][i] as Map<String, dynamic>;
+        final article = ArticleModel.fromJsonMap(data);
         articles.add(article);
       }
       return articles;

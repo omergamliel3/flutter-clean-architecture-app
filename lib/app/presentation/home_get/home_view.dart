@@ -8,22 +8,21 @@ import '../../core/widgets/index.dart' as core_widgets;
 import 'widgets/widgets.dart';
 
 class HomeViewGetX extends GetView<HomeController> {
-  Widget appBar() {
+  PreferredSizeWidget appBar() {
     return AppBar(
       elevation: 8.0,
       backgroundColor: Colors.yellow,
       title: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Icon(
+        children: const [
+          Icon(
             Icons.adb,
             color: Colors.black,
           ),
-          const SizedBox(
+          SizedBox(
             width: 6.0,
           ),
-          const Text(
+          Text(
             'NewsReader',
             style: TextStyle(
               color: Colors.black,
@@ -52,7 +51,7 @@ class HomeViewGetX extends GetView<HomeController> {
               return core_widgets.LoadingWidget();
               break;
             case ViewState.error:
-              return core_widgets.ErrorWidget();
+              return const core_widgets.ErrorWidget();
             case ViewState.data:
               return ArticlesView(
                 articles: controller.articles,

@@ -21,23 +21,25 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
   @override
   Future<Either<Failure, List<Article>>> getRemoteArticles() async {
     try {
-      List<Article> articles;
-      var response = await remoteDataSource.getArticles();
-      response.fold((failure) => failure, (data) => articles = data);
-      if (articles == null) return Left(Failure('Something went wrong'));
-      await localDataSource.saveArticles(articles);
-      return Right(articles);
+      final response = await remoteDataSource.getArticles();
+      return response.fold((failure) => Left(failure), (articles) async {
+        if (articles != null && articles.isNotEmpty) {
+          await localDataSource.saveArticles(articles);
+          return Right(articles);
+        }
+        return const Left(Failure('Something went wrong'));
+      });
     } on Exception catch (_) {
-      return Left(Failure('Something went wrong'));
+      return const Left(Failure('Something went wrong'));
     }
   }
 
   /// return either failure or list of articles from saved local database
   @override
   Future<Either<Failure, List<Article>>> getLocalArticles() async {
-    var articles = await localDataSource.getArticles();
+    final articles = await localDataSource.getArticles();
     if (articles == null || articles.isEmpty) {
-      return Left(Failure('No internet connection'));
+      return const Left(Failure('No internet connection'));
     }
     return Right(articles);
   }

@@ -9,22 +9,21 @@ import '../../../core/widgets/index.dart' as core_widgets;
 import '../widgets/widgets.dart';
 
 class HomeViewBloc extends StatelessWidget {
-  Widget appBar() {
+  PreferredSizeWidget appBar() {
     return AppBar(
       elevation: 8.0,
       backgroundColor: Colors.yellow,
       title: Row(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Icon(
+        children: const [
+          Icon(
             Icons.adb,
             color: Colors.black,
           ),
-          const SizedBox(
+          SizedBox(
             width: 6.0,
           ),
-          const Text(
+          Text(
             'NewsReader',
             style: TextStyle(
               color: Colors.black,
@@ -53,7 +52,7 @@ class HomeViewBloc extends StatelessWidget {
           return ArticlesView(articles: state.articles);
         }
         // default widget
-        return core_widgets.ErrorWidget();
+        return const core_widgets.ErrorWidget();
       },
     );
   }
@@ -63,7 +62,7 @@ class HomeViewBloc extends StatelessWidget {
     return SafeArea(
       top: false,
       child: BlocProvider(
-        create: (_) => Get.find<ArticlesBloc>()..add(GetData()),
+        create: (_) => Get.find<ArticlesBloc>()..add(const GetData()),
         child: Scaffold(
           backgroundColor: Colors.yellow,
           appBar: appBar(),

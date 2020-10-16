@@ -65,9 +65,9 @@ class ArticlesLocalDatasource {
   Future<bool> saveArticles(List<ArticleModel> articles) async {
     if (articles == null || articles.isEmpty) return false;
     await deleteAllArticles();
-    articles = validateData(articles);
+    final validatedArticles = validateData(articles);
     try {
-      for (var article in articles) {
+      for (final article in validatedArticles) {
         await _db.transaction(
           (txn) async {
             await txn.rawInsert('''
@@ -114,17 +114,17 @@ class ArticlesLocalDatasource {
 
   /// get all saved articles from db
   Future<List<ArticleModel>> getArticles() async {
-    List<Map> jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
+    final jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
     return jsons.map((e) => ArticleModel.fromJsonMap(e)).toList();
   }
 
   /// validate Articles data to evoid database exception
   List<ArticleModel> validateData(List<ArticleModel> articles) {
-    var validArticles = <ArticleModel>[];
-    for (var article in articles) {
-      var validTitle = article.title?.replaceAll('\"', '\'');
-      var validContent = article.content?.replaceAll('\"', '\'');
-      var validArticle = ArticleModel(
+    final validArticles = <ArticleModel>[];
+    for (final article in articles) {
+      final validTitle = article.title?.replaceAll('"', "'");
+      final validContent = article.content?.replaceAll('"', "'");
+      final validArticle = ArticleModel(
           title: validTitle,
           content: validContent,
           publishedAt: article.publishedAt,

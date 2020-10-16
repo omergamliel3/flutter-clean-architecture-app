@@ -6,7 +6,8 @@ class FAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-        onPressed: () => BlocProvider.of<ArticlesBloc>(context).add(GetData()),
+        onPressed: () =>
+            BlocProvider.of<ArticlesBloc>(context).add(const GetData()),
         backgroundColor: Colors.amber,
         icon: const Icon(
           Icons.refresh,

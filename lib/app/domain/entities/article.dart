@@ -7,7 +7,7 @@ class Article extends Equatable {
   final DateTime publishedAt;
   final String url;
   final String urlToImage;
-  Article({
+  const Article({
     @required this.title,
     @required this.content,
     @required this.publishedAt,

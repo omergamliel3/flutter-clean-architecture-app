@@ -3,6 +3,6 @@ class Failure {
   final String message;
   @override
   String toString() {
-    return '$message';
+    return message;
   }
 }

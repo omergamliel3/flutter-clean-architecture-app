@@ -3,25 +3,24 @@ import 'dart:convert';
 import '../../domain/entities/article.dart';
 import 'package:meta/meta.dart';
 
-@immutable
 class ArticleModel extends Article {
-  final String title;
-  final String content;
-  final DateTime publishedAt;
-  final String url;
-  final String urlToImage;
-  ArticleModel({
-    @required this.title,
-    @required this.content,
-    @required this.publishedAt,
-    @required this.url,
-    @required this.urlToImage,
-  });
+  const ArticleModel({
+    @required String title,
+    @required String content,
+    @required DateTime publishedAt,
+    @required String url,
+    @required String urlToImage,
+  }) : super(
+            title: title,
+            content: content,
+            publishedAt: publishedAt,
+            url: url,
+            urlToImage: urlToImage);
 
   ArticleModel copyWith({
     String title,
     String content,
-    String publishedAt,
+    DateTime publishedAt,
     String url,
     String urlToImage,
   }) {
@@ -48,16 +47,13 @@ class ArticleModel extends Article {
     if (map == null) return null;
 
     return ArticleModel(
-      title: map['title'] ?? '',
-      content: map['content'],
-      publishedAt: DateTime.parse(map['publishedAt']),
-      url: map['url'] ?? '',
-      urlToImage: map['urlToImage'] ?? '',
+      title: map['title'] as String ?? '',
+      content: map['content'] as String,
+      publishedAt: DateTime.parse(map['publishedAt'] as String),
+      url: map['url'] as String ?? '',
+      urlToImage: map['urlToImage'] as String ?? '',
     );
   }
 
   String toJson() => json.encode(toJsonMap());
-
-  factory ArticleModel.fromJson(String source) =>
-      ArticleModel.fromJsonMap(json.decode(source));
 }

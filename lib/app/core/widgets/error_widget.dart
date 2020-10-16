@@ -8,7 +8,7 @@ class ErrorWidget extends StatelessWidget {
     return Center(
         child: Text(
       message ?? 'Something went wrong',
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 24,
         color: Colors.black,
       ),
