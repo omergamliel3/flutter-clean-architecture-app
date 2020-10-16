@@ -1,12 +1,12 @@
-include: package:effective_dart/analysis_options.1.2.0.yaml
+include: package:lint/analysis_options.yaml
 
 linter:
   rules:
     public_member_api_docs: false
     directives_ordering: false
-    prefer_initializing_formals: true
     type_annotate_public_apis: false
-    use_setters_to_change_properties: false
     avoid_classes_with_only_static_members: false
+    avoid_print: false
     constant_identifier_names: false
-    file_names: false
+    sized_box_for_whitespace: false
+    overridden_fields: false
