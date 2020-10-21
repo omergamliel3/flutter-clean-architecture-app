@@ -39,20 +39,12 @@ class HomeViewBloc extends StatelessWidget {
   Widget buildBody(BuildContext context) {
     return BlocBuilder<ArticlesBloc, ArticlesState>(
       builder: (context, state) {
-        if (state is Initial) {
-          return core_widgets.LoadingWidget();
-        }
-        if (state is Loading) {
-          return core_widgets.LoadingWidget();
-        }
-        if (state is Error) {
-          return core_widgets.ErrorWidget(state.failure.message);
-        }
-        if (state is Success) {
-          return ArticlesView(articles: state.articles);
-        }
-        // default widget
-        return const core_widgets.ErrorWidget();
+        return state.when(
+          initial: () => core_widgets.LoadingWidget(),
+          loading: () => core_widgets.LoadingWidget(),
+          success: (articles) => ArticlesView(articles: articles),
+          error: (failure) => const core_widgets.ErrorWidget(),
+        );
       },
     );
   }

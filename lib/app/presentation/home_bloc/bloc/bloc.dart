@@ -1,3 +1,2 @@
 export 'articles_bloc.dart';
-export 'articles_event.dart';
-export 'articles_state.dart';
+export './freezed/freezed_classes.dart';
