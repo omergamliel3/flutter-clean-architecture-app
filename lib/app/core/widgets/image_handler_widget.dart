@@ -19,7 +19,7 @@ class ImageHandlerWidget extends StatelessWidget {
               fit: BoxFit.cover,
               fadeInDuration: const Duration(milliseconds: 500),
               placeholder: loadingAsset,
-              image: urlToImage,
+              image: urlToImage ?? '',
               imageErrorBuilder: (context, obj, error) =>
                   const AssetImageWidget(),
             ),
