@@ -11,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # api
+  retrofit: any
+  logger: any  
   # network info
   connectivity: ^0.4.9+3
   # functional programming
@@ -48,6 +51,7 @@ dev_dependencies:
   flutter_native_splash: ^0.1.9
   freezed: ^0.12.2
   json_serializable: ^3.5.0
+  retrofit_generator: any
   mockito:
   test: any
 
