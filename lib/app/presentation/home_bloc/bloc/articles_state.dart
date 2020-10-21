@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../core/errors/failure.dart';
-import '../../../domain/entities/article.dart';
 import 'package:meta/meta.dart';
+
+import '../../../domain/entities/article.dart';
+
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 
 @immutable
 abstract class ArticlesState extends Equatable {

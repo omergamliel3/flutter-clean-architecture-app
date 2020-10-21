@@ -9,8 +9,8 @@ import '../../../domain/entities/article.dart';
 import '../../../domain/usecases/get_local_articles.dart';
 import '../../../domain/usecases/get_remote_articles.dart';
 
-import '../../../core/network/network_info.dart';
-import '../../../core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
 
 import 'articles_event.dart';
 import 'articles_state.dart';

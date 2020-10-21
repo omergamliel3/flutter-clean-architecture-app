@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+
 import '../repositories/articles_repository.dart';
 
 import '../../domain/entities/article.dart';
 
-import '../../core/usecases/usecase.dart';
-import '../../core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/usecases/usecase.dart';
 
 class GetLocalArticles implements UseCase<List<Article>> {
   final ArticlesRepository repository;

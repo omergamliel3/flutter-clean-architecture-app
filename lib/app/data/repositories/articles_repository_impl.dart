@@ -7,7 +7,7 @@ import '../datasources/articles_remote_datasource.dart';
 import '../../domain/entities/article.dart';
 import '../../domain/repositories/articles_repository.dart';
 
-import '../../core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 
 class ArticlesRepositoryImpl implements ArticlesRepository {
   ArticlesRepositoryImpl(

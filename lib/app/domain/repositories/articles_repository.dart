@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import '../../domain/entities/article.dart';
-import '../../core/errors/failure.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 
 abstract class ArticlesRepository {
   Future<Either<Failure, List<Article>>> getRemoteArticles();

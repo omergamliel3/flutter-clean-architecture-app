@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
-import '../models/articles_model.dart';
+
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
-import '../../core/errors/failure.dart';
-import '../../../private/keys.dart';
+import '../models/articles_model.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
+import 'package:getx_hacker_news_api/private/keys.dart';
 
 const ERROR_MSG = 'Something went wrong';
 
