@@ -30,15 +30,15 @@ class ArticlesView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(formattedTime),
+              Text(formattedTime ?? ''),
               Text(
-                article.title,
+                article.title ?? '',
                 overflow: TextOverflow.ellipsis,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                article.content,
+                article.content ?? '',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
