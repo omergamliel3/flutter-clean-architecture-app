@@ -48,7 +48,7 @@ class ArticleModel extends Article {
 
     return ArticleModel(
       title: map['title'] as String ?? '',
-      content: map['content'] as String,
+      content: map['content'] as String ?? '',
       publishedAt: DateTime.parse(map['publishedAt'] as String),
       url: map['url'] as String ?? '',
       urlToImage: map['urlToImage'] as String ?? '',
