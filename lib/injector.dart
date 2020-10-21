@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+import 'package:getx_hacker_news_api/app/data/api/api.dart';
 import 'package:get/get.dart';
 
 import 'app/presentation/home_bloc/bloc/bloc.dart';
@@ -17,12 +18,11 @@ import 'app/domain/usecases/get_remote_articles.dart';
 
 // inject app dependencies
 Future<void> injectDependencies() async {
-  ///! HomeViewBloc dependency. comment if you are using HomeViewGetX
-  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(const Initial()));
-
+  // create a RestClient instace
+  final client = RestClient(Dio(BaseOptions(contentType: "application/json")));
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
-      () => ArticlesRemoteDatasource(client: http.Client()));
+      () => ArticlesRemoteDatasource(client: client));
   Get.putAsync(() async {
     final service = ArticlesLocalDatasource();
     await service.initDb();
@@ -42,4 +42,7 @@ Future<void> injectDependencies() async {
 
   // Core
   Get.lazyPut(() => NetworkInfo(connectivity: Connectivity()));
+
+  /// BloC
+  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(const Initial()));
 }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import '../models/articles_model.dart';
-
+import 'package:getx_hacker_news_api/app/data/api/api.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -115,7 +114,7 @@ class ArticlesLocalDatasource {
   /// get all saved articles from db
   Future<List<ArticleModel>> getArticles() async {
     final jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
-    return jsons.map((e) => ArticleModel.fromJsonMap(e)).toList();
+    return jsons.map((e) => ArticleModel.fromJson(e)).toList();
   }
 
   /// validate Articles data to evoid database exception
