@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
 import 'package:dartz/dartz.dart';
 
-import '../datasources/articles_local_datasource.dart';
-import '../datasources/articles_remote_datasource.dart';
+import '../datasources/local/articles_local_datasource.dart';
+import '../datasources/remote/articles_remote_datasource.dart';
 
 import '../../domain/entities/article.dart';
 import '../../domain/repositories/articles_repository.dart';
@@ -24,7 +24,7 @@ class ArticlesRepositoryImpl implements ArticlesRepository {
       final response = await remoteDataSource.getArticles();
       return response.fold((failure) => Left(failure), (articles) async {
         if (articles != null && articles.isNotEmpty) {
-          await localDataSource.saveArticles(articles);
+          await localDataSource.insertArticles(articles);
           return Right(articles);
         }
         return const Left(Failure('Can not find articles right now'));

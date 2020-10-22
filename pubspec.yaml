@@ -38,8 +38,10 @@ dependencies:
   lint: ^1.3.0
   # device native folders 
   path_provider: ^1.6.18
-  # device local storage
+  # sql db (local storage)
   sqflite: ^1.3.1+1
+  # no sql db (local storage)
+  sembast: ^2.4.7+7
   # url helper
   url_launcher: ^5.7.2
 

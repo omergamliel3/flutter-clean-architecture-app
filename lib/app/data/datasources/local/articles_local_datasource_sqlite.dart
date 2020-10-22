@@ -1,15 +1,18 @@
 import 'dart:io';
 
-import 'package:getx_hacker_news_api/app/data/api/api.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class ArticlesLocalDatasource {
+import '../../api/api.dart';
+import 'articles_local_datasource.dart';
+
+class ArticlesLocalDatasourceSqlImpl implements ArticlesLocalDatasource {
   final _kDbFileName = 'sqflite_ex.db';
   final _kDBTableName = 'articles_table';
   Database _db;
 
   /// Opens a db local file. Creates the db table if it's not yet created.
+  @override
   Future<bool> initDb() async {
     try {
       // get database path directory
@@ -36,14 +39,20 @@ class ArticlesLocalDatasource {
   }
 
   /// delete the database
-  Future<void> deleteDB() async {
-    final dbFolder = await getDatabasesPath();
-    if (!await Directory(dbFolder).exists()) {
-      await Directory(dbFolder).create(recursive: true);
+  @override
+  Future<bool> deleteDb() async {
+    try {
+      final dbFolder = await getDatabasesPath();
+      if (!await Directory(dbFolder).exists()) {
+        await Directory(dbFolder).create(recursive: true);
+      }
+      final dbPath = join(dbFolder, _kDbFileName);
+      await deleteDatabase(dbPath);
+      _db = null;
+      return true;
+    } catch (_) {
+      return false;
     }
-    final dbPath = join(dbFolder, _kDbFileName);
-    await deleteDatabase(dbPath);
-    _db = null;
   }
 
   // creates articles table
@@ -61,7 +70,8 @@ class ArticlesLocalDatasource {
   }
 
   /// save articles
-  Future<bool> saveArticles(List<ArticleModel> articles) async {
+  @override
+  Future<bool> insertArticles(List<ArticleModel> articles) async {
     if (articles == null || articles.isEmpty) return false;
     await deleteAllArticles();
     final validatedArticles = validateData(articles);
@@ -99,6 +109,7 @@ class ArticlesLocalDatasource {
   }
 
   /// delete all articles
+  @override
   Future<bool> deleteAllArticles() async {
     try {
       await _db.rawDelete('''
@@ -112,6 +123,7 @@ class ArticlesLocalDatasource {
   }
 
   /// get all saved articles from db
+  @override
   Future<List<ArticleModel>> getArticles() async {
     final jsons = await _db.rawQuery('SELECT * FROM $_kDBTableName');
     return jsons.map((e) => ArticleModel.fromJson(e)).toList();

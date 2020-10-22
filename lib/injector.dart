@@ -1,20 +1,22 @@
+import 'package:get/get.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
-import 'package:getx_hacker_news_api/app/data/api/api.dart';
-import 'package:get/get.dart';
 
-import 'app/presentation/home_bloc/bloc/bloc.dart';
+import 'app/data/api/api.dart';
+import 'app/data/datasources/local/articles_local_datasource.dart';
+import 'app/data/datasources/remote/articles_remote_datasource.dart';
 
-import 'app/core/network/network_info.dart';
-
-import 'app/data/datasources/articles_local_datasource.dart';
-import 'app/data/datasources/articles_remote_datasource.dart';
+import 'app/data/datasources/local/articles_local_datasource_sembast.dart';
 
 import 'app/data/repositories/articles_repository_impl.dart';
 import 'app/domain/repositories/articles_repository.dart';
 
 import 'app/domain/usecases/get_local_articles.dart';
 import 'app/domain/usecases/get_remote_articles.dart';
+
+import 'app/core/network/network_info.dart';
+
+import 'app/presentation/home_bloc/bloc/bloc.dart';
 
 // inject app dependencies
 Future<void> injectDependencies() async {
@@ -23,8 +25,8 @@ Future<void> injectDependencies() async {
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
       () => ArticlesRemoteDatasource(client: client));
-  Get.putAsync(() async {
-    final service = ArticlesLocalDatasource();
+  Get.putAsync<ArticlesLocalDatasource>(() async {
+    final service = ArticlesLocalDatasourceSembastImpl();
     await service.initDb();
     return service;
   });
