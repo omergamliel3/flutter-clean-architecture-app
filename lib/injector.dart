@@ -6,7 +6,7 @@ import 'app/data/api/api.dart';
 import 'app/data/datasources/local/articles_local_datasource.dart';
 import 'app/data/datasources/remote/articles_remote_datasource.dart';
 
-import 'app/data/datasources/local/articles_local_datasource_sembast.dart';
+import 'app/data/datasources/local/hive/articles_local_datasource_hive.dart';
 
 import 'app/data/repositories/articles_repository_impl.dart';
 import 'app/domain/repositories/articles_repository.dart';
@@ -26,7 +26,7 @@ Future<void> injectDependencies() async {
   Get.lazyPut<ArticlesRemoteDatasource>(
       () => ArticlesRemoteDatasource(client: client));
   Get.putAsync<ArticlesLocalDatasource>(() async {
-    final service = ArticlesLocalDatasourceSembastImpl();
+    final service = ArticlesLocalDatasourceHiveImpl();
     await service.initDb();
     return service;
   });
