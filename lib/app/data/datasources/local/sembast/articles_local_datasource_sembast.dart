@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'articles_local_datasource.dart';
-import '../../api/api.dart';
+import '../articles_local_datasource.dart';
+import '../../../api/api.dart';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

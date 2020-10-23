@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../../api/api.dart';
-import 'articles_local_datasource.dart';
+import '../../../api/api.dart';
+import '../articles_local_datasource.dart';
 
 class ArticlesLocalDatasourceSqlImpl implements ArticlesLocalDatasource {
   final _kDbFileName = 'sqflite_ex.db';
