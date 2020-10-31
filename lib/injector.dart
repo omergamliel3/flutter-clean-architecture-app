@@ -43,7 +43,7 @@ Future<void> injectDependencies() async {
       remoteDataSource: Get.find<ArticlesRemoteDatasource>()));
 
   // Core
-  Get.lazyPut(() => NetworkInfo(connectivity: Connectivity()));
+  Get.lazyPut<NetworkInfoI>(() => NetworkInfo(connectivity: Connectivity()));
 
   /// BloC
   Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(const Initial()));

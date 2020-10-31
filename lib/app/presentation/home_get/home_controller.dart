@@ -13,7 +13,7 @@ enum ViewState { initial, busy, error, data }
 
 class HomeController extends GetxController {
   // network info
-  final network = Get.find<NetworkInfo>();
+  final network = Get.find<NetworkInfoI>();
   final getRemoteArticles = Get.find<GetRemoteArticles>();
   final getLocalArticles = Get.find<GetLocalArticles>();
   // view state reactive value

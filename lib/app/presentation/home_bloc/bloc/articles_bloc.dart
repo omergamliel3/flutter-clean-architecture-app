@@ -19,7 +19,7 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   ArticlesBloc(ArticlesState initialState) : super(initialState);
 
   // get dependencies
-  final network = get_x.Get.find<NetworkInfo>();
+  final network = get_x.Get.find<NetworkInfoI>();
   final getRemoteArticles = get_x.Get.find<GetRemoteArticles>();
   final getLocalArticles = get_x.Get.find<GetLocalArticles>();
 
