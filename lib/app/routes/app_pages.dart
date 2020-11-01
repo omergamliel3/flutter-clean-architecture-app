@@ -1,4 +1,3 @@
-import '../presentation/home_bloc/view/home_view.dart';
 import '../presentation/index.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +13,7 @@ class AppPages {
     /// ! Bloc state managment, only use if registered ArticlesBloc in injector
     GetPage(
       name: Routes.HOME,
-      page: () => HomeViewBloc(),
+      page: () => HomeViewCubit(),
     ),
     GetPage(
       name: Routes.LOADING,

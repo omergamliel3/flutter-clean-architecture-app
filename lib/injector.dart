@@ -16,7 +16,7 @@ import 'app/domain/usecases/get_remote_articles.dart';
 
 import 'app/core/network/network_info.dart';
 
-import 'app/presentation/home_bloc/bloc/bloc.dart';
+import 'app/presentation/home_cubit/cubit/articles_cubit.dart';
 
 // inject app dependencies
 Future<void> injectDependencies() async {
@@ -45,6 +45,6 @@ Future<void> injectDependencies() async {
   // Core
   Get.lazyPut<NetworkInfoI>(() => NetworkInfo(connectivity: Connectivity()));
 
-  /// BloC
-  Get.lazyPut<ArticlesBloc>(() => ArticlesBloc(const Initial()));
+  /// Cubit
+  Get.lazyPut<ArticlesCubit>(() => ArticlesCubit());
 }
