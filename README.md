@@ -16,7 +16,7 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 ### Front-end
 - **Flutter SDK**
 - **GetX (navigation service, dependencies manager)**
-- **BloC (state managment) / GetX (state managment)**
+- **Flutter BloC / GetX (state managment)**
 
 ### Back-end
 - **SQLite**
@@ -34,7 +34,7 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 - **'REFRESH' botton functionality - show error message when the user try to load new data when device is offline, or fetching new data from the api ends with a failure**
 - **fetch articles functionality - return with either data (articles), or feilure (http error, empty data, offline state). Update view according to the value returned from the function (data widget, failure widget)**
 
-- **Note: The main view state managment is implemented twice, with either GetX or BloC (for comparison purpuse)**
+- **Note: The main view state managment is implemented with either GetX or BloC (for comparison purpuse)**
 
 # Author 🙋
 
