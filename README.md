@@ -20,6 +20,8 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 
 ### Back-end
 - **SQLite**
+- **Sembast**
+- **Hive**
 - **NewsAPI** 
 
 ## Features
