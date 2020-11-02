@@ -43,7 +43,7 @@ class HomeViewCubit extends StatelessWidget {
           initial: () => core_widgets.LoadingWidget(),
           loading: () => core_widgets.LoadingWidget(),
           success: (articles) => ArticlesView(articles: articles),
-          error: (failure) => const core_widgets.ErrorWidget(),
+          error: (failure) => core_widgets.ErrorWidget(failure.message),
         );
       },
     );
