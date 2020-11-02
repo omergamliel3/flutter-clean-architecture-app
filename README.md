@@ -4,7 +4,7 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 
 ## Screenshots
 
-<img src="screenshots/screenshot 2.jpg" width="240px"> <img src="screenshots/screenshot 3.jpg" width="240px"/> <img src="screenshots/screenshot 1.jpg" width="240px"/> <img src="screenshots/screenshot 4.jpg" width="240px"/>
+<img src="screenshots/screenshot_2.jpg" width="240px"> <img src="screenshots/screenshot_3.jpg" width="240px"/> <img src="screenshots/screenshot_1.jpg" width="240px"/> <img src="screenshots/screenshot_4.jpg" width="240px"/>
 
 
 ## Technologies
