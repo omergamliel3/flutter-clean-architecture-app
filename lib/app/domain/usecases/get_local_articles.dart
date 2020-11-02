@@ -12,7 +12,7 @@ class GetLocalArticles implements UseCase<List<Article>> {
   GetLocalArticles(this.repository);
   @override
   Future<Either<Failure, List<Article>>> call() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return repository.getLocalArticles();
   }
 }
