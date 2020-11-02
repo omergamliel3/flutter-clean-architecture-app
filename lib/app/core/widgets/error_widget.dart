@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const DEFAULT_MESSAGE = 'Something went wrong';
+
 class ErrorWidget extends StatelessWidget {
   final String message;
   const ErrorWidget([this.message]);
@@ -7,7 +9,7 @@ class ErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Text(
-      message ?? 'Something went wrong',
+      message ?? DEFAULT_MESSAGE,
       style: const TextStyle(
         fontSize: 24,
         color: Colors.black,
