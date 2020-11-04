@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart' as get_x;
+import 'package:get/get.dart';
 
 import '../../../domain/entities/article.dart';
 import '../../../domain/usecases/get_local_articles.dart';
@@ -16,15 +16,13 @@ import './freezed/freezed_classes.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   // construct bloc with initial state
-  ArticlesBloc() : super(const Initial());
+  ArticlesBloc(this.network, this.getRemoteArticles, this.getLocalArticles)
+      : super(const Initial());
 
-  // get dependencies
-  final network = get_x.Get.find<NetworkInfoI>();
-  final getRemoteArticles = get_x.Get.find<GetRemoteArticles>();
-  final getLocalArticles = get_x.Get.find<GetLocalArticles>();
-
-  // state history
-  final stateHistory = <ArticlesState>[const Initial()];
+  // dependencies
+  final NetworkInfoI network;
+  final GetRemoteArticles getRemoteArticles;
+  final GetLocalArticles getLocalArticles;
 
   @override
   Stream<ArticlesState> mapEventToState(ArticlesEvent event) async* {
@@ -39,8 +37,8 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
       } else {
         failureOrArticles = await getLocalArticles.call();
         waitForConnectivityAndNotifyGetDataEvent();
-        get_x.Get.snackbar('Offline mode', 'There is no internet connection',
-            snackPosition: get_x.SnackPosition.BOTTOM);
+        Get.snackbar('Offline mode', 'There is no internet connection',
+            snackPosition: SnackPosition.BOTTOM);
       }
       // yield new ArticlesState
       yield failureOrArticles.fold(
@@ -56,11 +54,5 @@ class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
         add(const GetData());
       }
     });
-  }
-
-  @override
-  void onTransition(Transition<ArticlesEvent, ArticlesState> transition) {
-    super.onTransition(transition);
-    stateHistory.add(transition.nextState);
   }
 }
