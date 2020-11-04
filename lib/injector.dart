@@ -46,5 +46,6 @@ Future<void> injectDependencies() async {
   Get.lazyPut<NetworkInfoI>(() => NetworkInfo(connectivity: Connectivity()));
 
   /// Cubit
-  Get.lazyPut<ArticlesCubit>(() => ArticlesCubit());
+  Get.lazyPut<ArticlesCubit>(() => ArticlesCubit(Get.find<NetworkInfoI>(),
+      Get.find<GetRemoteArticles>(), Get.find<GetLocalArticles>()));
 }
