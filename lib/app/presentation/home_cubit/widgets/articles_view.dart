@@ -62,12 +62,14 @@ class ArticlesView extends StatelessWidget {
         BlocProvider.of<ArticlesCubit>(context).getArticles();
       },
       child: ListView.builder(
+        key: const ValueKey('articles_list'),
         itemCount: articles.length,
         itemBuilder: (context, index) {
           final article = articles[index];
           return GestureDetector(
             onTap: () => launch(article.url),
             child: Container(
+              key: ValueKey('article$index'),
               height: 100,
               child: buildArticleTile(article),
             ),
