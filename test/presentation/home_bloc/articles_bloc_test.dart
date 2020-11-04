@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc_test/bloc_test.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:getx_hacker_news_api/app/domain/usecases/get_local_articles.dart';
 import 'package:getx_hacker_news_api/app/domain/usecases/get_remote_articles.dart';
 
-import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
 import 'package:getx_hacker_news_api/app/presentation/home_bloc/bloc/articles_bloc.dart';
 import 'package:getx_hacker_news_api/app/presentation/home_bloc/bloc/bloc.dart';
@@ -35,25 +35,51 @@ void main() {
         ArticlesBloc(networkInfo, getRemoteArticles, getLocalArticles);
   });
 
-  blocTest<ArticlesBloc, ArticlesState>(
-    'should emits [Loading, Success] when [GetData] event is called succesfuly.',
-    build: () {
-      when(networkInfo.isConnected())
-          .thenAnswer((realInvocation) => Future.value(true));
-      when(getRemoteArticles.call())
-          .thenAnswer((realInvocation) => Future.value(Right(articles)));
-      return articlesBloc;
-    },
-    act: (bloc) => bloc.add(const GetData()),
-    expect: [
-      isA<Loading>(),
-      isA<Success>(),
-    ],
-    verify: (_) {
-      verifyInOrder([networkInfo.isConnected(), getRemoteArticles.call()]);
-      verifyNoMoreInteractions(networkInfo);
-      verifyNoMoreInteractions(getRemoteArticles);
-      verifyZeroInteractions(getLocalArticles);
-    },
-  );
+  group('is online', () {
+    blocTest<ArticlesBloc, ArticlesState>(
+      'should emits [Loading, Success] when [GetData] event is called succesfuly.',
+      build: () {
+        when(networkInfo.isConnected())
+            .thenAnswer((realInvocation) => Future.value(true));
+        when(getRemoteArticles.call())
+            .thenAnswer((realInvocation) => Future.value(Right(articles)));
+        return articlesBloc;
+      },
+      act: (bloc) => bloc.add(const GetData()),
+      expect: [isA<Loading>(), Success(articles)],
+      verify: (_) {
+        verifyInOrder([networkInfo.isConnected(), getRemoteArticles.call()]);
+        verifyNoMoreInteractions(networkInfo);
+        verifyNoMoreInteractions(getRemoteArticles);
+        verifyZeroInteractions(getLocalArticles);
+      },
+    );
+  });
+
+  group('is offline', () {
+    blocTest<ArticlesBloc, ArticlesState>(
+      'should emits [Loading, Success] when [GetData] event is called succesfuly.',
+      build: () {
+        when(networkInfo.isConnected())
+            .thenAnswer((realInvocation) => Future.value(false));
+        when(networkInfo.onConnectivityChanged).thenAnswer(
+            (realInvocation) => Stream.fromIterable([ConnectivityResult.none]));
+        when(getLocalArticles.call())
+            .thenAnswer((realInvocation) => Future.value(Right(articles)));
+        return articlesBloc;
+      },
+      act: (bloc) => bloc.add(const GetData()),
+      expect: [isA<Loading>(), Success(articles)],
+      verify: (_) {
+        verifyInOrder([
+          networkInfo.isConnected(),
+          getLocalArticles.call(),
+          networkInfo.onConnectivityChanged
+        ]);
+        verifyNoMoreInteractions(networkInfo);
+        verifyNoMoreInteractions(getLocalArticles);
+        verifyZeroInteractions(getRemoteArticles);
+      },
+    );
+  });
 }
