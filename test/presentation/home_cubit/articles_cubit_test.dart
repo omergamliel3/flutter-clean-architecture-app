@@ -37,7 +37,7 @@ void main() {
 
   group('is online', () {
     blocTest<ArticlesCubit, ArticlesState>(
-      'should emits [Loading, Success] when bloc.getArticles is called succesfuly.',
+      'should emits [Loading, Success] when cubit.getArticles is called succesfuly.',
       build: () {
         when(networkInfo.isConnected())
             .thenAnswer((realInvocation) => Future.value(true));
@@ -58,7 +58,7 @@ void main() {
 
   group('is offline', () {
     blocTest<ArticlesCubit, ArticlesState>(
-      'should emits [Loading, Success] when bloc.getArticles is called succesfuly.',
+      'should emits [Loading, Success] when cubit.getArticles is called succesfuly.',
       build: () {
         when(networkInfo.isConnected())
             .thenAnswer((realInvocation) => Future.value(false));
