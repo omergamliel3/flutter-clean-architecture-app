@@ -1,8 +1,8 @@
 import 'dart:async';
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get/get.dart';
 
 import 'package:getx_hacker_news_api/app/domain/usecases/get_local_articles.dart';
 import 'package:getx_hacker_news_api/app/domain/usecases/get_remote_articles.dart';
@@ -31,25 +31,29 @@ void main() {
     networkInfo = MockNetworkInfo();
     getRemoteArticles = MockGetRemoteArticles();
     getLocalArticles = MockGetLocalArticles();
-    articlesBloc = ArticlesBloc();
-    Get.lazyPut<NetworkInfoI>(() => networkInfo);
-    Get.lazyPut<GetRemoteArticles>(() => getRemoteArticles);
-    Get.lazyPut<GetLocalArticles>(() => getLocalArticles);
+    articlesBloc =
+        ArticlesBloc(networkInfo, getRemoteArticles, getLocalArticles);
   });
 
-  test(
-      'when add GetData event should yield Loading, check for network info, call get local/remote articles, and yield Success if succesful, else yield Error',
-      () async {
-    // arrange
-    when(networkInfo.isConnected())
-        .thenAnswer((realInvocation) => Future.value(true));
-    when(getRemoteArticles.call())
-        .thenAnswer((realInvocation) => Future.value(Right(articles)));
-    // act
-    articlesBloc.add(const GetData());
-
-    // assert
-    expectLater(articlesBloc,
-        emitsInOrder([const Initial(), const Loading(), Success(articles)]));
-  });
+  blocTest<ArticlesBloc, ArticlesState>(
+    'should emits [Loading, Success] when [GetData] event is called succesfuly.',
+    build: () {
+      when(networkInfo.isConnected())
+          .thenAnswer((realInvocation) => Future.value(true));
+      when(getRemoteArticles.call())
+          .thenAnswer((realInvocation) => Future.value(Right(articles)));
+      return articlesBloc;
+    },
+    act: (bloc) => bloc.add(const GetData()),
+    expect: [
+      isA<Loading>(),
+      isA<Success>(),
+    ],
+    verify: (_) {
+      verifyInOrder([networkInfo.isConnected(), getRemoteArticles.call()]);
+      verifyNoMoreInteractions(networkInfo);
+      verifyNoMoreInteractions(getRemoteArticles);
+      verifyZeroInteractions(getLocalArticles);
+    },
+  );
 }
