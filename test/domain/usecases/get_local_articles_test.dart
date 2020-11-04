@@ -1,11 +1,13 @@
-import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:getx_hacker_news_api/app/domain/entities/article.dart';
+import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
+
 import 'package:getx_hacker_news_api/app/domain/repositories/articles_repository.dart';
 import 'package:getx_hacker_news_api/app/domain/usecases/get_local_articles.dart';
+
+import '../../test_helper.dart';
 
 class ArticlesRepositoryMock extends Mock implements ArticlesRepository {}
 
@@ -18,22 +20,7 @@ void main() {
     usecase = GetLocalArticles(articlesRepositoryMock);
   });
 
-  test('should get articles from the repository', () async {
-    final articles = <Article>[
-      Article(
-          title: 'test1',
-          content: 'test1',
-          publishedAt: DateTime.now(),
-          url: 'url1',
-          urlToImage: 'urlToImage1'),
-      Article(
-          title: 'test2',
-          content: 'test2',
-          publishedAt: DateTime.now(),
-          url: 'url2',
-          urlToImage: 'urlToImage2')
-    ];
-
+  test('should get local articles from the repository', () async {
     // arrange
     when(articlesRepositoryMock.getLocalArticles())
         .thenAnswer((realInvocation) => Future.value(Right(articles)));
