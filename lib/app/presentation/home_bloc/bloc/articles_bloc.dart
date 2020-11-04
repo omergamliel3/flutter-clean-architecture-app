@@ -16,7 +16,7 @@ import './freezed/freezed_classes.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   // construct bloc with initial state
-  ArticlesBloc(ArticlesState initialState) : super(initialState);
+  ArticlesBloc() : super(const Initial());
 
   // get dependencies
   final network = get_x.Get.find<NetworkInfoI>();
