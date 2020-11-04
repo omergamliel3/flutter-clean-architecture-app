@@ -16,12 +16,13 @@ import 'article_state/state.dart';
 
 class ArticlesCubit extends Cubit<ArticlesState> {
   // construct bloc with initial state
-  ArticlesCubit() : super(const Initial());
+  ArticlesCubit(this.network, this.getRemoteArticles, this.getLocalArticles)
+      : super(const Initial());
 
   // get dependencies
-  final network = Get.find<NetworkInfoI>();
-  final getRemoteArticles = Get.find<GetRemoteArticles>();
-  final getLocalArticles = Get.find<GetLocalArticles>();
+  final NetworkInfoI network;
+  final GetRemoteArticles getRemoteArticles;
+  final GetLocalArticles getLocalArticles;
 
   Future<void> getArticles() async {
     emit(const Loading());
