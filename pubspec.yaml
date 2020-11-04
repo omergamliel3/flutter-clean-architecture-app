@@ -59,6 +59,7 @@ dev_dependencies:
   retrofit_generator: any
   hive_generator: ^0.8.1
   mockito:
+  bloc_test: ^7.1.0
   test: any
 
 # flutter icons setup
