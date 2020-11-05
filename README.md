@@ -1,6 +1,10 @@
 # GetX NewsAPI
 
-A clean architecture news reader app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli), [NewsAPI](https://newsapi.org/) and Flutter sdk.
+A clean architecture news app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli), [NewsAPI](https://newsapi.org/) and Flutter sdk.
+
+The main goal is to build readble, maintainable, testable, and high-quality flutter app using test-driven-design styled architecture (Inspired by [Reso Coder](https://resocoder.com/)).
+
+You can learn how to implement the architecture here: [TDD Clean Architecture for Flutter](https://github.com/ResoCoder/flutter-tdd-clean-architecture-course)
 
 ## Screenshots
 
@@ -15,8 +19,8 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 
 ### Front-end
 - **Flutter SDK**
-- **GetX (navigation service, dependencies manager)**
-- **Flutter BloC / GetX (state managment)**
+- **GetX (navigation service, dependencies manager, ui components)**
+- **Bloc / Cubit / GetX (state managment)**
 
 ### Back-end
 - **SQLite**
@@ -34,7 +38,7 @@ A clean architecture news reader app, using [Getx](https://pub.dev/packages/get)
 - **'REFRESH' botton functionality - show error message when the user try to load new data when device is offline, or fetching new data from the api ends with a failure**
 - **fetch articles functionality - return with either data (articles), or feilure (http error, empty data, offline state). Update view according to the value returned from the function (data widget, failure widget)**
 
-- **Note: The main view state managment is implemented with either GetX or BloC (for comparison purpuse)**
+- **Note: The main view state managment is implemented with GetX, BloC, Bloc (for comparison purpuses)**
 
 # Author 🙋
 
