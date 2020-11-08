@@ -9,3 +9,8 @@ linter:
     avoid_print: false
     constant_identifier_names: false
     sized_box_for_whitespace: false
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
