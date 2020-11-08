@@ -1,4 +1,4 @@
-import 'package:getx_hacker_news_api/app/data/api/api.dart';
+import 'package:getx_hacker_news_api/app/data/models/article_model.dart';
 
 abstract class ArticlesLocalDatasource {
   Future<bool> initDb();

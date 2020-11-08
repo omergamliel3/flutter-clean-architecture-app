@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
 
 import 'package:getx_hacker_news_api/app/data/api/api.dart';
+import 'package:getx_hacker_news_api/app/data/models/article_model.dart';
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 
 const ERROR_MSG = 'Something went wrong';

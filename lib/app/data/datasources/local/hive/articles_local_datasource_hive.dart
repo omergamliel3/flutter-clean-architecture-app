@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../articles_local_datasource.dart';
-import '../../../api/api.dart';
+import 'package:getx_hacker_news_api/app/data/models/article_model.dart';
 import 'article.dart';
 
 class ArticlesLocalDatasourceHiveImpl implements ArticlesLocalDatasource {
