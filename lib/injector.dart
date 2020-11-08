@@ -20,7 +20,7 @@ import 'app/presentation/home_cubit/cubit/articles_cubit.dart';
 
 // inject app dependencies
 Future<void> injectDependencies() async {
-  // create a RestClient instace
+  // create a RestClient instance
   final client = RestClient(Dio(BaseOptions(contentType: "application/json")));
   // Data sources
   Get.lazyPut<ArticlesRemoteDatasource>(
