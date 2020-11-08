@@ -3,29 +3,6 @@
 part of 'api.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-ArticleModel _$ArticleModelFromJson(Map json) {
-  return ArticleModel(
-    title: json['title'] as String,
-    content: json['content'] as String,
-    publishedAt: DateTime.parse(json['publishedAt'] as String),
-    url: json['url'] as String,
-    urlToImage: json['urlToImage'] as String,
-  );
-}
-
-Map<String, dynamic> _$ArticleModelToJson(ArticleModel instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'content': instance.content,
-      'publishedAt': instance.publishedAt.toIso8601String(),
-      'url': instance.url,
-      'urlToImage': instance.urlToImage,
-    };
-
-// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
