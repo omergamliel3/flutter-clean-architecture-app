@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:getx_hacker_news_api/app/data/api/api.dart';
+import 'package:getx_hacker_news_api/app/data/models/article_model.dart';
 import 'package:getx_hacker_news_api/app/data/datasources/remote/articles_remote_datasource.dart';
 
 class MockRestClient extends Mock implements RestClient {}

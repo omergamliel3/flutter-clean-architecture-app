@@ -1,12 +1,11 @@
-import 'package:getx_hacker_news_api/app/data/api/api.dart';
-import 'package:getx_hacker_news_api/app/data/repositories/articles_repository_impl.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/data/datasources/remote/articles_remote_datasource.dart';
-
+import 'package:getx_hacker_news_api/app/data/models/article_model.dart';
+import 'package:getx_hacker_news_api/app/data/repositories/articles_repository_impl.dart';
 import 'package:getx_hacker_news_api/app/data/datasources/local/articles_local_datasource.dart';
 
 class ArticlesLocalDatasourceMock extends Mock
