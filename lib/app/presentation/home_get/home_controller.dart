@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
+import '../../../injector.dart';
 
 import '../../domain/usecases/get_local_articles.dart';
 import '../../domain/usecases/get_remote_articles.dart';
@@ -13,9 +14,9 @@ enum ViewState { initial, busy, error, data }
 
 class HomeController extends GetxController {
   // network info
-  final network = Get.find<NetworkInfoI>();
-  final getRemoteArticles = Get.find<GetRemoteArticles>();
-  final getLocalArticles = Get.find<GetLocalArticles>();
+  final network = Injector.resolve<NetworkInfoI>();
+  final getRemoteArticles = Injector.resolve<GetRemoteArticles>();
+  final getLocalArticles = Injector.resolve<GetLocalArticles>();
   // view state reactive value
   final viewState = ViewState.initial.obs;
   // device connectivity state reactive value

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getx_hacker_news_api/injector.dart';
 import '../bloc/bloc.dart';
 
 import '../../../core/widgets/index.dart' as core_widgets;
@@ -54,7 +55,7 @@ class HomeViewBloc extends StatelessWidget {
     return SafeArea(
       top: false,
       child: BlocProvider(
-        create: (_) => Get.find<ArticlesBloc>()..add(const GetData()),
+        create: (_) => Injector.resolve<ArticlesBloc>()..add(const GetData()),
         child: Scaffold(
           backgroundColor: Colors.yellow,
           appBar: appBar(),

@@ -47,22 +47,30 @@ dependencies:
   hive_flutter: ^0.3.1
   # url helper
   url_launcher: ^5.7.2
+  # IoC
+  kiwi: ^2.1.1
 
 dev_dependencies:
+  # tests
   flutter_driver:
     sdk: flutter
   flutter_test:
     sdk: flutter
-  build_runner: ^1.10.3
+  mockito:
+  bloc_test: ^7.1.0
+  test: any  
+
+  # native icons & splash
   flutter_launcher_icons: ^0.8.1
   flutter_native_splash: ^0.1.9
+
+  # code generators
+  build_runner: ^1.10.3
   freezed: ^0.12.2
   json_serializable: ^3.5.0
   retrofit_generator: any
   hive_generator: ^0.8.1
-  mockito:
-  bloc_test: ^7.1.0
-  test: any
+  kiwi_generator: ^2.1.1
 
 # flutter icons setup
 flutter_icons:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:getx_hacker_news_api/injector.dart';
 import '../cubit/cubit.dart';
 
 import '../../../core/widgets/index.dart' as core_widgets;
@@ -54,7 +55,7 @@ class HomeViewCubit extends StatelessWidget {
     return SafeArea(
       top: false,
       child: BlocProvider(
-        create: (_) => Get.find<ArticlesCubit>()..getArticles(),
+        create: (_) => Injector.resolve<ArticlesCubit>()..getArticles(),
         child: Scaffold(
           backgroundColor: Colors.yellow,
           appBar: appBar(),

@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+import 'package:kiwi/kiwi.dart';
+
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 
@@ -18,34 +19,49 @@ import 'app/core/network/network_info.dart';
 
 import 'app/presentation/home_cubit/cubit/articles_cubit.dart';
 
-// inject app dependencies
-Future<void> injectDependencies() async {
-  // create a RestClient instance
-  final client = RestClient(Dio(BaseOptions(contentType: "application/json")));
-  // Data sources
-  Get.lazyPut<ArticlesRemoteDatasource>(
-      () => ArticlesRemoteDatasource(client: client));
-  Get.putAsync<ArticlesLocalDatasource>(() async {
-    final service = ArticlesLocalDatasourceHiveImpl();
-    await service.initDb();
-    return service;
-  });
+part 'injector.g.dart';
 
-  // Use cases
-  Get.lazyPut<GetLocalArticles>(
-      () => GetLocalArticles(Get.find<ArticlesRepository>()));
-  Get.lazyPut<GetRemoteArticles>(
-      () => GetRemoteArticles(Get.find<ArticlesRepository>()));
+abstract class Injector {
+  static KiwiContainer container;
 
-  // Repository
-  Get.lazyPut<ArticlesRepository>(() => ArticlesRepositoryImpl(
-      localDataSource: Get.find<ArticlesLocalDatasource>(),
-      remoteDataSource: Get.find<ArticlesRemoteDatasource>()));
+  static void setup() {
+    container = KiwiContainer();
+    _$Injector()._configure();
+  }
 
-  // Core
-  Get.lazyPut<NetworkInfoI>(() => NetworkInfo(connectivity: Connectivity()));
+  static final resolve = container.resolve;
 
-  /// Cubit
-  Get.lazyPut<ArticlesCubit>(() => ArticlesCubit(Get.find<NetworkInfoI>(),
-      Get.find<GetRemoteArticles>(), Get.find<GetLocalArticles>()));
+  void _configure() {
+    _configureCore();
+    _configureArticlesFeatureModule();
+  }
+
+  // Core module
+  void _configureCore() {
+    container.registerInstance(Connectivity());
+    container.registerInstance<NetworkInfoI>(
+        NetworkInfo(connectivity: container<Connectivity>()));
+  }
+
+  // Articles Feature module
+  void _configureArticlesFeatureModule() {
+    _configureArticlesFeatureModuleInstances();
+    _configureArticlesFeatureModuleFactories();
+  }
+
+  // Articles Feature module instances
+  void _configureArticlesFeatureModuleInstances() {
+    container.registerInstance(
+        RestClient(Dio(BaseOptions(contentType: "application/json"))));
+  }
+
+  // Articles Feature module factories
+  @Register.factory(ArticlesRemoteDatasource)
+  @Register.factory(ArticlesLocalDatasource,
+      from: ArticlesLocalDatasourceHiveImpl)
+  @Register.factory(GetLocalArticles)
+  @Register.factory(GetRemoteArticles)
+  @Register.factory(ArticlesRepository, from: ArticlesRepositoryImpl)
+  @Register.factory(ArticlesCubit)
+  void _configureArticlesFeatureModuleFactories();
 }
