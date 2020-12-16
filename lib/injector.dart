@@ -37,11 +37,9 @@ abstract class Injector {
   }
 
   // Core module
-  void _configureCore() {
-    container.registerInstance(Connectivity());
-    container.registerInstance<NetworkInfoI>(
-        NetworkInfo(connectivity: container<Connectivity>()));
-  }
+  @Register.singleton(Connectivity)
+  @Register.singleton(NetworkInfoI, from: NetworkInfo)
+  void _configureCore();
 
   // Articles Feature module
   void _configureArticlesFeatureModule() {
