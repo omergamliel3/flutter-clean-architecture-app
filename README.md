@@ -1,4 +1,4 @@
-# GetX NewsApp
+# Clean architecture flutter app
 
 A clean architecture news app, using [Getx](https://pub.dev/packages/get), [GetX CLI](https://pub.dev/packages/get_cli), [NewsAPI](https://newsapi.org/) and Flutter sdk.
 
