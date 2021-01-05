@@ -17,7 +17,7 @@ import 'app/domain/usecases/get_remote_articles.dart';
 
 import 'app/core/network/network_info.dart';
 
-import 'app/presentation/home_cubit/cubit/articles_cubit.dart';
+import 'app/presentation/home_cubit/controller/index.dart';
 
 part 'injector.g.dart';
 

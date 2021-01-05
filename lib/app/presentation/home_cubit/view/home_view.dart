@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getx_hacker_news_api/injector.dart';
-import '../cubit/cubit.dart';
 
 import '../../../core/widgets/index.dart' as core_widgets;
 
+import '../controller/index.dart';
 import '../widgets/widgets.dart';
 
 class HomeViewCubit extends StatelessWidget {

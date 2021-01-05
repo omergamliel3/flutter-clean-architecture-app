@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/domain/entities/article.dart';
 
-part 'freezed_classes.freezed.dart';
+part 'bloc_classes.freezed.dart';
 
 @freezed
 abstract class ArticlesState with _$ArticlesState {

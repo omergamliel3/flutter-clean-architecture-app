@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:getx_hacker_news_api/injector.dart';
-import '../bloc/bloc.dart';
+import '../controller/index.dart';
 
 import '../../../core/widgets/index.dart' as core_widgets;
 

@@ -9,8 +9,7 @@ import 'package:getx_hacker_news_api/app/domain/usecases/get_local_articles.dart
 import 'package:getx_hacker_news_api/app/domain/usecases/get_remote_articles.dart';
 
 import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
-import 'package:getx_hacker_news_api/app/presentation/home_cubit/cubit/articles_cubit.dart';
-import 'package:getx_hacker_news_api/app/presentation/home_cubit/cubit/cubit.dart';
+import 'package:getx_hacker_news_api/app/presentation/home_cubit/controller/index.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../test_helper.dart';

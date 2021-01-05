@@ -12,7 +12,7 @@ import '../../../domain/usecases/get_remote_articles.dart';
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
 
-import 'article_state/state.dart';
+import 'state.dart';
 
 class ArticlesCubit extends Cubit<ArticlesState> {
   // construct bloc with initial state

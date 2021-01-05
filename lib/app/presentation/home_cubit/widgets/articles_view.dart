@@ -9,7 +9,7 @@ import '../../../core/widgets/index.dart' as core_widgets;
 import '../../../core/utils/launcher.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubit/cubit.dart';
+import '../controller/index.dart';
 
 class ArticlesView extends StatelessWidget {
   final List<Article> articles;
