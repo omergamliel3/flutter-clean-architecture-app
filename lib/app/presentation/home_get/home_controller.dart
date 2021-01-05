@@ -1,7 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
-import '../../../injector.dart';
+import '../../../di/injector.dart';
 
 import '../../domain/usecases/get_local_articles.dart';
 import '../../domain/usecases/get_remote_articles.dart';
