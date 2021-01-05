@@ -12,7 +12,8 @@ import '../../../domain/usecases/get_remote_articles.dart';
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
 
-import 'bloc_classes.dart';
+import 'event.dart';
+import 'state.dart';
 
 class ArticlesBloc extends Bloc<ArticlesEvent, ArticlesState> {
   // construct bloc with initial state
