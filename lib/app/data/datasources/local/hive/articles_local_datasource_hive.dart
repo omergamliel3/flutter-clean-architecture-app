@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:hive/hive.dart';
 
 import 'package:path_provider/path_provider.dart';
@@ -14,8 +14,11 @@ class ArticlesLocalDatasourceHiveImpl implements ArticlesLocalDatasource {
   @override
   Future<bool> initDb() async {
     try {
-      final appDocumentDir = await getApplicationDocumentsDirectory();
-      Hive.init(appDocumentDir.path);
+      if (!foundation.kIsWeb) {
+        final appDocumentDir = await getApplicationDocumentsDirectory();
+        Hive.init(appDocumentDir.path);
+      }
+
       Hive.registerAdapter(ArticleAdapter());
       await Hive.openBox<Article>(_kArticlesBoxName);
       return true;
