@@ -9,6 +9,7 @@ import '../../../di/injector.dart';
 class LoadingController extends GetxController {
   @override
   Future onInit() async {
+    super.onInit();
     await Injector.resolve<ArticlesLocalDatasource>().initDb();
     await Future.delayed(const Duration(seconds: 1));
     Get.offAndToNamed(Routes.HOME);

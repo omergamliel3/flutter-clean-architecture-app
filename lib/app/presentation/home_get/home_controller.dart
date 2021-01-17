@@ -33,6 +33,7 @@ class HomeController extends GetxController {
 
   @override
   Future onInit() async {
+    super.onInit();
     // check for connectivity
     connectvityResult.value = await network.connectivityResult;
 

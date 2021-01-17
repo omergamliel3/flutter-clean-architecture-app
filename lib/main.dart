@@ -17,7 +17,6 @@ Future<void> main() async {
       getPages: AppPages.routes,
       theme: lightThemeData(),
       darkTheme: darkThemeData(),
-      themeMode: ThemeMode.system,
     ),
   );
 }
