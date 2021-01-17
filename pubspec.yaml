@@ -29,7 +29,7 @@ dependencies:
   # bloc state managment
   flutter_bloc: ^6.0.6
   # GetX mico-framework
-  get: ^3.12.1
+  get: ^3.24.0
   # network
   http: ^0.12.2
   # date formatter
