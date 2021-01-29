@@ -49,6 +49,8 @@ dependencies:
   url_launcher: ^5.7.2
   # IoC
   kiwi: ^2.1.1
+  # env variables
+  flutter_dotenv: ^3.1.0
 
 dev_dependencies:
   # tests
