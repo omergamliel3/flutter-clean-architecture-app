@@ -1,3 +1,4 @@
+import 'package:getx_hacker_news_api/app/core/usecases/usecase.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
@@ -26,7 +27,7 @@ void main() {
         .thenAnswer((realInvocation) => Future.value(Right(articles)));
 
     // act
-    final result = await usecase.call();
+    final result = await usecase.call(NoParams());
 
     // assert
     expect(result, Right(articles));
@@ -42,7 +43,7 @@ void main() {
         .thenAnswer((realInvocation) => Future.value(const Left(failure)));
 
     // act
-    final result = await usecase.call();
+    final result = await usecase.call(NoParams());
 
     // assert
     expect(result, const Left(failure));

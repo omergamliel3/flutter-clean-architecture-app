@@ -9,6 +9,7 @@ import '../../../domain/entities/article.dart';
 import '../../../domain/usecases/get_local_articles.dart';
 import '../../../domain/usecases/get_remote_articles.dart';
 
+import 'package:getx_hacker_news_api/app/core/usecases/usecase.dart';
 import 'package:getx_hacker_news_api/app/core/errors/failure.dart';
 import 'package:getx_hacker_news_api/app/core/network/network_info.dart';
 
@@ -29,9 +30,9 @@ class ArticlesCubit extends Cubit<ArticlesState> {
     final connectivity = await network.isConnected();
     Either<Failure, List<Article>> failureOrArticles;
     if (connectivity) {
-      failureOrArticles = await getRemoteArticles.call();
+      failureOrArticles = await getRemoteArticles.call(NoParams());
     } else {
-      failureOrArticles = await getLocalArticles.call();
+      failureOrArticles = await getLocalArticles.call(NoParams());
       waitForConnectivityAndCallGetArticles();
       Get.snackbar('Offline mode', 'There is no internet connection',
           snackPosition: SnackPosition.BOTTOM);

@@ -7,6 +7,7 @@ import '../../domain/usecases/get_local_articles.dart';
 import '../../domain/usecases/get_remote_articles.dart';
 
 import '../../core/network/network_info.dart';
+import 'package:getx_hacker_news_api/app/core/usecases/usecase.dart';
 import '../../domain/entities/article.dart';
 import '../../core/errors/failure.dart';
 
@@ -73,7 +74,7 @@ class HomeController extends GetxController {
       return;
     }
     _setState(ViewState.busy);
-    final result = await getRemoteArticles.call();
+    final result = await getRemoteArticles.call(NoParams());
     _handleFetchResult(result);
   }
 
@@ -82,7 +83,7 @@ class HomeController extends GetxController {
     localArticlesView = true;
     if (viewState.value == ViewState.busy) return;
     _setState(ViewState.busy);
-    final result = await getLocalArticles.call();
+    final result = await getLocalArticles.call(NoParams());
     _handleFetchResult(result, true);
   }
 

@@ -4,6 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:getx_hacker_news_api/app/core/usecases/usecase.dart';
 
 import 'package:getx_hacker_news_api/app/domain/usecases/get_local_articles.dart';
 import 'package:getx_hacker_news_api/app/domain/usecases/get_remote_articles.dart';
@@ -40,14 +41,15 @@ void main() {
       build: () {
         when(networkInfo.isConnected())
             .thenAnswer((realInvocation) => Future.value(true));
-        when(getRemoteArticles.call())
+        when(getRemoteArticles.call(NoParams()))
             .thenAnswer((realInvocation) => Future.value(Right(articles)));
         return articlesBloc;
       },
       act: (bloc) => bloc.add(const GetData()),
       expect: [isA<Loading>(), Success(articles)],
       verify: (_) {
-        verifyInOrder([networkInfo.isConnected(), getRemoteArticles.call()]);
+        verifyInOrder(
+            [networkInfo.isConnected(), getRemoteArticles.call(NoParams())]);
         verifyNoMoreInteractions(networkInfo);
         verifyNoMoreInteractions(getRemoteArticles);
         verifyZeroInteractions(getLocalArticles);
@@ -63,7 +65,7 @@ void main() {
             .thenAnswer((realInvocation) => Future.value(false));
         when(networkInfo.onConnectivityChanged).thenAnswer(
             (realInvocation) => Stream.fromIterable([ConnectivityResult.none]));
-        when(getLocalArticles.call())
+        when(getLocalArticles.call(NoParams()))
             .thenAnswer((realInvocation) => Future.value(Right(articles)));
         return articlesBloc;
       },
@@ -72,7 +74,7 @@ void main() {
       verify: (_) {
         verifyInOrder([
           networkInfo.isConnected(),
-          getLocalArticles.call(),
+          getLocalArticles.call(NoParams()),
           networkInfo.onConnectivityChanged
         ]);
         verifyNoMoreInteractions(networkInfo);
