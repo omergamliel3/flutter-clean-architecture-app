@@ -17,12 +17,13 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  Future<List<ArticleModel>> getTopHeadlines() async {
+  Future<List<ArticleModel>> getTopHeadlines(apikey) async {
+    ArgumentError.checkNotNull(apikey, 'apikey');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        '/top-headlines?language=en&pageSize=100&apiKey=a7e670365d50454a9d746ae81fbbae29',
+    final _result = await _dio.request<List<dynamic>>(
+        '/top-headlines?language=en&pageSize=100&apiKey=$apikey',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -30,9 +31,9 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final values = _result.data['articles'] as List<dynamic>;
-    return values
-        .map((e) => ArticleModel.fromJson(e as Map<String, dynamic>))
+    var value = _result.data
+        .map((dynamic i) => ArticleModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
   }
 }

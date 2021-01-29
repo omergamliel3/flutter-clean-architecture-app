@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
 
@@ -17,7 +18,7 @@ class ArticlesRemoteDatasource {
   /// return decoded data as Map if status code is 200
   Future<Either<Failure, List<ArticleModel>>> getArticles() async {
     try {
-      final articles = await client.getTopHeadlines();
+      final articles = await client.getTopHeadlines(env['API_KEY']);
       return Right(articles);
     } on DioError catch (error) {
       print(error.type);

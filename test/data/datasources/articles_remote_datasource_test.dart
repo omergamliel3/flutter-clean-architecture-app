@@ -29,7 +29,7 @@ void main() {
   test('should return articles data when the call to rest client is successful',
       () async {
     // arrange
-    when(client.getTopHeadlines())
+    when(client.getTopHeadlines(any))
         .thenAnswer((realInvocation) => Future.value(articles));
 
     // act
@@ -37,21 +37,21 @@ void main() {
 
     // assert
     expect(result, Right(articles));
-    verify(client.getTopHeadlines());
+    verify(client.getTopHeadlines(any));
     verifyNoMoreInteractions(client);
   });
 
   test('should return failure when the call to rest client ends with Exception',
       () async {
     // arrange
-    when(client.getTopHeadlines()).thenThrow(Exception());
+    when(client.getTopHeadlines(any)).thenThrow(Exception());
 
     // act
     final result = await remoteDatasource.getArticles();
 
     // assert
     expect(result, isA<Left>());
-    verify(client.getTopHeadlines());
+    verify(client.getTopHeadlines(any));
     verifyNoMoreInteractions(client);
   });
 }
